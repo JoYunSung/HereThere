@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    android:background="#ffffff">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -17,11 +18,14 @@
                 android:layout_weight="0.5"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"/>
-            <EditText
-                android:hint="원하시는 지역또는 명소를 검색해주세요"
-                android:layout_weight="10"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/search_bar"/>
+
             <LinearLayout
                 android:layout_weight="0.5"
                 android:layout_width="0dp"
@@ -36,7 +40,7 @@
                 android:paddingBottom="5dp"
                 android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:layout_weight="0.1"
+                android:layout_weight="0.08"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp">
                 <LinearLayout
@@ -46,19 +50,19 @@
                 <ImageView
                     android:id="@+id/main_circle_1"
                     android:src="@drawable/circle_1"
-                    android:layout_weight="1"
+                    android:layout_weight="0.3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"/>
                 <ImageView
                     android:id="@+id/main_circle_2"
                     android:src="@drawable/circle_2"
-                    android:layout_weight="1"
+                    android:layout_weight="0.3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"/>
                 <ImageView
                     android:id="@+id/main_circle_3"
                     android:src="@drawable/circle_2"
-                    android:layout_weight="1"
+                    android:layout_weight="0.3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"/>
                 <LinearLayout

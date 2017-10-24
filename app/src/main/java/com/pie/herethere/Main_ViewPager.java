@@ -10,7 +10,7 @@ public class Main_ViewPager extends PagerAdapter {
 
     LayoutInflater inflater;
     public Integer imgRe[] = new Integer[] {
-            R.drawable.red,
+            R.drawable.card1_0,
             R.drawable.yello,
             R.drawable.green
     };
