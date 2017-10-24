@@ -30,7 +30,6 @@ public class Main_ViewPager extends PagerAdapter {
         view = inflater.inflate(R.layout.main_viewpager, null);
 
         ImageView img = (ImageView) view.findViewById(R.id.main_viewPager_img);
-
         img.setImageResource(imgRe[position]);
 
         container.addView(view);
