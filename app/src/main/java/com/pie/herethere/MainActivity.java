@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -13,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     ImageView img_1, img_2, img_3;
 
     LinearLayout layout;
+    int height;
 
     public void Declaration() {
         viewPager = (ViewPager) findViewById(R.id.main_viewPager);
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     public void Ready() {
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
-        int height = dm.heightPixels;
+        height = dm.heightPixels;
 
         // 레이아웃 크기 - (이미지 크기 변경)
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) layout.getLayoutParams();
@@ -43,14 +45,32 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         Ready();
 
         // 뷰 페이저
-        Main_ViewPager main_viewPager = new Main_ViewPager(getLayoutInflater());
+        final Main_ViewPager main_viewPager = new Main_ViewPager(getLayoutInflater());
         viewPager.setAdapter(main_viewPager);
         viewPager.setOnPageChangeListener(this);
+
+        viewPager.setClipToPadding(false);
+        //viewPager.setPadding(0, 0, 0, 0);
+        //viewPager.setPageMargin(getResources().getDisplayMetrics().widthPixels / -20);
+        //viewPager.setOffscreenPageLimit(2);
+
+        viewPager.setPageMargin(1);
+
+        viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
+            @Override public void transformPage(View page, float position) {
+                if (viewPager.getCurrentItem() == 0) {
+                    page.setTranslationX(height/20);
+                } else if (viewPager.getCurrentItem() == main_viewPager.getCount() - 1) {
+                    page.setTranslationX(-(height/20));
+                } else {
+                    page.setTranslationX(height/25);
+                }
+            }
+        });
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
     }
 
     // 뷰 페이저 인디케이터

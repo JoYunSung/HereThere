@@ -11,8 +11,8 @@ public class Main_ViewPager extends PagerAdapter {
     LayoutInflater inflater;
     public Integer imgRe[] = new Integer[] {
             R.drawable.card1_0,
-            R.drawable.yello,
-            R.drawable.green
+            R.drawable.card1_0,
+            R.drawable.card1_0,
     };
 
     public Main_ViewPager(LayoutInflater inflater) {
@@ -44,5 +44,10 @@ public class Main_ViewPager extends PagerAdapter {
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
+    }
+
+    @Override
+    public float getPageWidth(int position) {
+        return (0.87f);
     }
 }
