@@ -7,4 +7,9 @@ public class AppKey {
     public String getAppKey() {
         return AppKey;
     }
+
+    final static String AppURL_Travel = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
+    public String getAppURL() {
+        return AppURL_Travel;
+    }
 }
