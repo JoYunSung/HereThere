@@ -53,6 +53,7 @@ public class Search_ListAdapter extends BaseAdapter{
             //img.setImageResource(R.drawable.not_found_image);
         }
         title.setText(list.get(position).getTitle());
+
         return convertView;
     }
 }

@@ -1,6 +1,7 @@
 package com.pie.herethere;
 
 public class Search_ListData {
+
     String title;
     String img;
 
