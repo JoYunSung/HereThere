@@ -50,19 +50,20 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         viewPager.setOnPageChangeListener(this);
 
         viewPager.setClipToPadding(false);
-        //viewPager.setPadding(0, 0, 0, 0);
-        //viewPager.setPageMargin(getResources().getDisplayMetrics().widthPixels / -20);
-        //viewPager.setOffscreenPageLimit(2);
-
-        viewPager.setPageMargin(1);
+        viewPager.setPageMargin(0);
 
         viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
             @Override public void transformPage(View page, float position) {
+                // 1
                 if (viewPager.getCurrentItem() == 0) {
-                    page.setTranslationX(height/20);
-                } else if (viewPager.getCurrentItem() == main_viewPager.getCount() - 1) {
-                    page.setTranslationX(-(height/20));
-                } else {
+                    page.setTranslationX(height/24);
+                }
+                // 3
+                else if (viewPager.getCurrentItem() == main_viewPager.getCount() - 1) {
+                    page.setTranslationX(-(height/30));
+                }
+                // 2
+                else {
                     page.setTranslationX(height/25);
                 }
             }
