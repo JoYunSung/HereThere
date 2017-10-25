@@ -8,8 +8,8 @@ public class AppKey {
         return AppKey;
     }
 
-    final static String AppURL_Travel = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
+    final static String AppURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
     public String getAppURL() {
-        return AppURL_Travel;
+        return AppURL;
     }
 }
