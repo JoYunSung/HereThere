@@ -1,11 +1,12 @@
 package com.pie.herethere;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.pie.herethere.App.AppKey;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,10 +18,6 @@ import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import com.pie.herethere.App.AppKey;
-
-import static android.R.id.list;
 
 public class SearchActivity extends AppCompatActivity {
 
