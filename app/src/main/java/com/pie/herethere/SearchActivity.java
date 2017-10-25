@@ -1,11 +1,11 @@
 package com.pie.herethere;
 
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
+import android.os.Bundle;
 
-import com.pie.herethere.App.AppKey;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,10 +18,16 @@ import java.net.URL;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import com.pie.herethere.App.AppKey;
+
+import static android.R.id.list;
+
 public class SearchActivity extends AppCompatActivity {
 
     URL FileURL, FileValue;
     Document document, valueDocumanet;
+    TextView text_test1;
+
 
     AppKey appkey;
 
@@ -29,6 +35,9 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        text_test1 = (TextView)findViewById(R.id.text_test1);
+
     }
 
     int number[] = new int[] {0, 1, 2, 3};
@@ -110,6 +119,7 @@ public class SearchActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 //list.add(new PushTravel_List(title, img, km, time));
+                text_test1.setText(title);
             }
             super.onPostExecute(document);
         }
