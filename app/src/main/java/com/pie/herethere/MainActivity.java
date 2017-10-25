@@ -1,5 +1,6 @@
 package com.pie.herethere;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
     ViewPager viewPager;
     ImageView img_1, img_2, img_3;
@@ -16,12 +17,17 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     LinearLayout layout;
     int height;
 
+    ImageView Search_img;
+
     public void Declaration() {
         viewPager = (ViewPager) findViewById(R.id.main_viewPager);
 
         img_1 = (ImageView) findViewById(R.id.main_circle_1);
         img_2 = (ImageView) findViewById(R.id.main_circle_2);
         img_3 = (ImageView) findViewById(R.id.main_circle_3);
+
+        Search_img = (ImageView) findViewById(R.id.main_search);
+        Search_img.setOnClickListener(this);
 
         layout = (LinearLayout) findViewById(R.id.main_li);
     }
@@ -60,14 +66,22 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 }
                 // 3
                 else if (viewPager.getCurrentItem() == main_viewPager.getCount() - 1) {
-                    page.setTranslationX(-(height/30));
+                    page.setTranslationX(-(height/32));
                 }
                 // 2
                 else {
-                    page.setTranslationX(height/25);
+                    page.setTranslationX(height/23);
                 }
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.main_search) {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
