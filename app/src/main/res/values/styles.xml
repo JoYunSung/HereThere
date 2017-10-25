@@ -7,9 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+        <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
+
         <item name="android:statusBarColor">#0288D1</item> <!-- 상태바 색 -->
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <!-- 커스텀 폰트 -->
+    <style name="AppTheme.Widget"/>
+    ​
+    <style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
+        <item name="fontPath">jua.ttf</item>
+    </style>
 </resources>

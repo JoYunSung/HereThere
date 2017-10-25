@@ -40,7 +40,7 @@
             <LinearLayout
                 android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:layout_weight="0.08"
+                android:layout_weight="0.1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
                 <LinearLayout
@@ -50,19 +50,19 @@
                 <ImageView
                     android:id="@+id/main_circle_1"
                     android:src="@drawable/circle_1"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.25"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"/>
                 <ImageView
                     android:id="@+id/main_circle_2"
                     android:src="@drawable/circle_2"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.25"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"/>
                 <ImageView
                     android:id="@+id/main_circle_3"
                     android:src="@drawable/circle_2"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.25"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"/>
                 <LinearLayout
@@ -77,15 +77,14 @@
                 android:layout_height="0dp">
             </android.support.v4.view.ViewPager>
             <ImageView
-                android:background="#00ff00"
-                android:src="@drawable/logo"
+                android:scaleType="fitCenter"
+                android:src="@drawable/card2_0"
                 android:id="@+id/main_img_1"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"/>
             <ImageView
-                android:background="#0000ff"
-                android:src="@drawable/logo"
+                android:src="@drawable/card3_0"
                 android:id="@+id/main_img_2"
                 android:layout_weight="1"
                 android:layout_width="match_parent"

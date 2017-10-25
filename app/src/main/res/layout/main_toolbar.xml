@@ -21,14 +21,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:background="#123456"
                     android:layout_width="50dp"
-                    android:layout_height="50dp"/>
+                    android:layout_height="50dp"
+                    android:src="@drawable/bookmark1"/>
                 <TextView
                     android:text="여기저기"
-                    android:textSize="20dp"
+                    android:textSize="30dp"
+                    android:textColor="#ffffff"
                     android:layout_centerVertical="true"
-                    android:gravity="center_horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
