@@ -15,11 +15,14 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class SearchActivity extends AppCompatActivity {
+
+    ArrayList<Search_ListData>list;
 
     URL FileURL, FileValue;
     Document document, valueDocumanet;
@@ -115,7 +118,7 @@ public class SearchActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"사망", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
-                //list.add(new PushTravel_List(title, img, km, time));
+                list.add(new Search_ListData(title, img));
                 text_test1.setText(title);
             }
             super.onPostExecute(document);
