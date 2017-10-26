@@ -1,5 +1,6 @@
 package com.pie.herethere;
 
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +26,28 @@ public class Main_ViewPager extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(final ViewGroup container, final int position) {
         View view = null;
         view = inflater.inflate(R.layout.main_viewpager, null);
 
         ImageView img = (ImageView) view.findViewById(R.id.main_viewPager_img);
         img.setImageResource(imgRe[position]);
+
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (position) {
+                    case 0 :
+                        Intent intent = new Intent(container.getContext(), AnyWhereActivity.class);
+                        container.getContext().startActivity(intent);
+                        break;
+                    case 1 :
+                        break;
+                    case 2 :
+                        break;
+                }
+            }
+        });
 
         container.addView(view);
         return view;
