@@ -2,6 +2,7 @@ package com.pie.herethere;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,19 +15,24 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class SearchActivity extends AppCompatActivity {
+import static android.R.id.list;
 
-    ArrayList<Search_ListData>list;
+public class SearchActivity extends AppCompatActivity {
 
     URL FileURL, FileValue;
     Document document, valueDocumanet;
     TextView text_test1;
+
+    ArrayList<Search_ListData>resultList = new ArrayList<>();
+
+    Search_ListAdapter adapter;
 
     AppKey appkey;
 
@@ -35,7 +41,22 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        appkey = new AppKey();
+
         text_test1 = (TextView)findViewById(R.id.text_test1);
+
+        int AreaCode = 1;
+        int PageNum = 1;
+
+        try {
+            FileURL = new URL(appkey.getAppURL() + "areaBasedList?ServiceKey=" + appkey.getAppKey() + "&contentTypeId=25&areaCode=" + AreaCode +
+                    "&sigunguCode=&cat1=C01&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=12&pageNo=" + PageNum);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        GetXml getXml = new GetXml();
+        getXml.execute(String.valueOf(FileURL));
 
     }
 
@@ -117,7 +138,7 @@ public class SearchActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"사망", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
-                list.add(new Search_ListData(title, img));
+                resultList.add(new Search_ListData(title, img));
                 text_test1.setText(title);
             }
             super.onPostExecute(document);
