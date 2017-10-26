@@ -59,7 +59,7 @@ public class SearchActivity extends AppCompatActivity {
         getXml.execute(String.valueOf(FileURL));
 
     }
-
+//가나다
     int number[] = new int[] {0, 1, 2, 3};
 
     private class GetXml extends AsyncTask<String, Void, Document> {
