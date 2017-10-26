@@ -28,7 +28,6 @@ public class SearchActivity extends AppCompatActivity {
     Document document, valueDocumanet;
     TextView text_test1;
 
-
     AppKey appkey;
 
     @Override
