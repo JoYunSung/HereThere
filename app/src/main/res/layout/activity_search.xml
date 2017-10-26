@@ -11,12 +11,4 @@
         android:layout_height="match_parent"
         layout="@layout/search_toolbar"/>
 
-    <TextView
-        android:id="@+id/text_test1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="TextView" />
-
 </RelativeLayout>
