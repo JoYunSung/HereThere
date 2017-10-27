@@ -27,7 +27,7 @@ public class Search_ListAdapter extends BaseAdapter{
 
     @Override
     public Object getItem(int i) {
-        return list.get(i).title;
+        return list.get(i);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Search_ListAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.search_view, null);
+            convertView = inflater.inflate(R.layout.search_custom, null);
         }
 
         ImageView img = (ImageView) convertView.findViewById(R.id.search_list_img);
