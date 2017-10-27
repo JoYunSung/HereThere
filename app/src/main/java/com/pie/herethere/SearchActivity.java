@@ -1,5 +1,6 @@
 package com.pie.herethere;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +34,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     AppKey app;
     URL FileValue;
+
+    InputMethodManager imm;
 
     ListView listView;
     Search_ListAdapter adapter;
@@ -63,6 +67,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         search_cl_2.setOnClickListener(this);
         search_cl_3.setOnClickListener(this);
 
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     public void Ready() {
@@ -114,6 +119,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         bt_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                 Ready();
             }
         });
@@ -121,6 +127,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
+                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                     Ready();
                     return true;
                 }
