@@ -4,7 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
 
 import com.pie.herethere.App.AppKey;
@@ -90,6 +92,34 @@ public class AnyWhereActivity extends AppCompatActivity {
                 .build()
         );
         Ready();
+
+        final SwipeRefreshLayout refresh = (SwipeRefreshLayout) findViewById(R.id.aniwhere_swipe);
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.setVisibility(View.INVISIBLE);
+                    }
+                }, 100);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        list.clear();
+                        Ready();
+
+                        if (list.size() > 5) {
+                            for (int i = 5; i < list.size(); i++) {
+                                list.remove(i);
+                            }
+                        }
+                        refresh.setRefreshing(false);
+                        listView.setVisibility(View.VISIBLE);
+                    }
+                }, 500);
+            }
+        });
     }
 
     private class GetXml extends AsyncTask<String, Void, Document> {
