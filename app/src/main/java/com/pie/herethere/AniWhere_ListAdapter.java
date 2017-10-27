@@ -43,6 +43,7 @@ public class AniWhere_ListAdapter extends BaseAdapter {
 
         ImageView img = (ImageView) convertView.findViewById(R.id.aniwhere_list_img);
         TextView title = (TextView) convertView.findViewById(R.id.aniwhere_list_title);
+        TextView tv_distance = (TextView)convertView.findViewById(R.id.aniwhere_list_distacne);
 
         Glide
                 .with(convertView.getContext())
@@ -50,6 +51,8 @@ public class AniWhere_ListAdapter extends BaseAdapter {
                 .into(img);
 
         title.setText(list.get(position).getTitle());
+
+        tv_distance.setText(list.get(position).getDistance());
 
         return convertView;
     }

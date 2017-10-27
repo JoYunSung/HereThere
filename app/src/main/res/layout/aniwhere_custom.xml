@@ -7,16 +7,30 @@
     <ImageView
         android:background="#123456"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="200dp"
+        android:id="@+id/imageView" />
     <ImageView
         android:id="@+id/aniwhere_list_img"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
+
     <TextView
-        android:textSize="25dp"
-        android:layout_gravity="center"
         android:id="@+id/aniwhere_list_title"
-        android:text="Null"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/aniwhere_list_distacne"
+        android:layout_alignStart="@+id/aniwhere_list_distacne"
+        android:layout_gravity="center"
+        android:text="Null"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/aniwhere_list_distacne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:text="Null"
+        android:textSize="25dp" />
 </RelativeLayout>
