@@ -30,7 +30,7 @@ public class AnyWhereActivity extends AppCompatActivity {
 
     URL FileValue;
 
-    int Code, PageNo = 1;
+    int Code, PageNo = 1, MaxValue = 5;
     String cat1, cat2;
 
     AppKey app;
@@ -43,7 +43,7 @@ public class AnyWhereActivity extends AppCompatActivity {
 
     public void Ready() {
         try {
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < MaxValue; i++) {
                 Code = (int) (Math.random() * 2);
 
                 if (Code == 0) {
@@ -109,8 +109,8 @@ public class AnyWhereActivity extends AppCompatActivity {
                         list.clear();
                         Ready();
 
-                        if (list.size() > 5) {
-                            for (int i = 5; i < list.size(); i++) {
+                        if (list.size() > MaxValue) {
+                            for (int i = MaxValue; i < list.size(); i++) {
                                 list.remove(i);
                             }
                         }
