@@ -43,9 +43,9 @@ public class AnyWhereActivity extends AppCompatActivity {
 
     public void Ready() {
         try {
-            Code = (int) (Math.random() * 2);
-
             for (int i = 0; i < 5; i++) {
+                Code = (int) (Math.random() * 2);
+
                 if (Code == 0) {
                     cat1 = "A01";
                     cat2 = "A0101";
