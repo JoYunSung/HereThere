@@ -33,6 +33,7 @@ public class AnyWhereActivity extends AppCompatActivity {
 
     AppKey app;
     Document document;
+
     ArrayList<AniWhere_ListData> list = new ArrayList<>();
 
     ListView listView;
