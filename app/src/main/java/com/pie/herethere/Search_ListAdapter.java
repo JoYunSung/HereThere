@@ -44,14 +44,11 @@ public class Search_ListAdapter extends BaseAdapter{
         ImageView img = (ImageView) convertView.findViewById(R.id.search_list_img);
         TextView title = (TextView) convertView.findViewById(R.id.search_list_title);
 
-        if (list.get(position).getImg().toString() != "이미지 없음") {
-            Glide
-                    .with(convertView.getContext())
-                    .load(list.get(position).getImg().toString())
-                    .into(img);
-        } else {
-            //img.setImageResource(R.drawable.not_found_image);
-        }
+        Glide
+                .with(convertView.getContext())
+                .load(list.get(position).getImg().toString())
+                .into(img);
+
         title.setText(list.get(position).getTitle());
 
         return convertView;
