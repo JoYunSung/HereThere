@@ -30,6 +30,9 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
     AppKey app;
@@ -115,6 +118,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_search);
         app = new AppKey();
         Declaration();
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("jua.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
 
         bt_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,5 +219,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             }
             catch (Exception e) {}
         }
+    }
+
+    @Override
+    protected void attachBaseContext (Context newBase){
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }
