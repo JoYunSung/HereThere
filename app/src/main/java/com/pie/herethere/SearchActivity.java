@@ -15,10 +15,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pie.herethere.App.AppKey;
 
@@ -38,7 +36,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
+public class SearchActivity extends AppCompatActivity {
 
     AppKey app;
     URL FileValue;
@@ -56,7 +54,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     String search_text, cat;
 
-    int choice = 1;
+    int choice = 1, update = 0;
 
     public void Declaration() {
         listView = (ListView) findViewById(R.id.search_list);
@@ -67,42 +65,47 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void Ready() {
-        try {
-            listView.setVisibility(View.INVISIBLE);
-            list.clear();
+        final int checkUpdate = update;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (checkUpdate == update) {
+                    try {
+                        listView.setVisibility(View.INVISIBLE);
+                        list.clear();
 
-            search_text = editText.getText().toString();
+                        search_text = editText.getText().toString();
 
-            switch (choice) {
-                case 1 :
-                    cat = "A01";
-                    break;
-                case 2 :
-                    cat = "A02";
-                    break;
-                case 3 :
-                    cat = "A05";
-                    break;
-            }
+                        switch (choice) {
+                            case 1 :
+                                cat = "A01";
+                                break;
+                            case 2 :
+                                cat = "A02";
+                                break;
+                            case 3 :
+                                cat = "A05";
+                                break;
+                        }
 
-            FileValue = new URL(app.getAppURL() + "searchKeyword?ServiceKey=" + app.getAppKey() + "&keyword=" + URLEncoder.encode(search_text, "utf-8") +
-                    "&areaCode=&sigunguCode=&cat1=" + cat + "&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=10000&pageNo=1");
+                        FileValue = new URL(app.getAppURL() + "searchKeyword?ServiceKey=" + app.getAppKey() + "&keyword=" + URLEncoder.encode(search_text, "utf-8") +
+                                "&areaCode=&sigunguCode=&cat1=" + cat + "&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=10000&pageNo=1");
 
-            GetXml getXml = new GetXml();
-            getXml.execute(String.valueOf(FileValue));
+                        GetXml getXml = new GetXml();
+                        getXml.execute(String.valueOf(FileValue));
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    adapter = new Search_ListAdapter(getLayoutInflater(), list);
-                    listView.setAdapter(adapter);
-                    listView.setVisibility(View.VISIBLE);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter = new Search_ListAdapter(getLayoutInflater(), list);
+                                listView.setAdapter(adapter);
+                                listView.setVisibility(View.VISIBLE);
+                            }
+                        }, 1000);
+                    } catch (Exception e) { }
                 }
-            }, 1000);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            }
+        }, 500);
     }
 
     @Override
@@ -133,6 +136,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
                     imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                    Update();
                     Ready();
                     return true;
                 }
@@ -158,16 +162,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // 입력되는 텍스트에 변화가 있을 때
-                list.clear();
+                Update();
                 Ready();
             }
 
             @Override
             public void afterTextChanged(Editable arg0) {
-                // 입력이 끝났을 때list.clear();
-                list.clear();
-                listView.setAdapter(adapter);
+                Update();
                 Ready();
             }
 
@@ -176,11 +177,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 // 입력하기 전에
             }
         });
-    }
-
-    @Override
-    public void onClick(View view) {
-        Ready();
     }
 
     private class GetXml extends AsyncTask<String, Void, Document> {
@@ -246,12 +242,20 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 super.onPostExecute(document);
             }
-            catch (Exception e) {}
+            catch (Exception e) {
+
+            }
         }
     }
 
     @Override
     protected void attachBaseContext (Context newBase){
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    public void Update() {
+        if (update >= 100000)
+            update = 0;
+        update++;
     }
 }
