@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pie.herethere">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -22,16 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
-            android:hardwareAccelerated="false" />
+            android:hardwareAccelerated="false"/>
         <activity
             android:name=".SearchActivity"
-            android:hardwareAccelerated="false" />
-        <activity android:name=".AnyWhereActivity" />
-        <activity android:name=".ValueActivity" />
-        <activity android:name=".WhatEatActivity" />
-        <activity android:name=".DataActivity"></activity>
+            android:hardwareAccelerated="false"/>
+        <activity
+            android:name=".ValueActivity"
+            android:hardwareAccelerated="false"/>
+        <activity
+            android:name=".DataActivity"
+            android:hardwareAccelerated="false"/>
     </application>
-
 </manifest>
