@@ -32,7 +32,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class DataActivity extends AppCompatActivity {
+public class DataActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     URL FileValue;
 
@@ -51,7 +51,10 @@ public class DataActivity extends AppCompatActivity {
     int typeId = 0;
 
     public void Declaration() {
+        app = new AppKey();
+
         listView = (ListView) findViewById(R.id.data_list);
+        listView.setOnItemClickListener(this);
         listView.setDivider(null);
     }
 
@@ -89,34 +92,23 @@ public class DataActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data);
-        app = new AppKey();
-        Declaration();
-
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        initLocationManager(locationManager);
-
+    public void SetFont() {
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("jua.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+    }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(DataActivity.this, ValueActivity.class);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_data);
+        Declaration();
+        SetFont();
 
-                intent.putExtra("title", list.get(i).getTitle());
-                intent.putExtra("img", list.get(i).getImg());
-                intent.putExtra("id", list.get(i).getContentId());
-
-                startActivity(intent);
-            }
-        });
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        initLocationManager(locationManager);
 
         final SwipeRefreshLayout refresh = (SwipeRefreshLayout) findViewById(R.id.data_swipe);
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -142,8 +134,7 @@ public class DataActivity extends AppCompatActivity {
     }
 
     private void initLocationManager(LocationManager locationManager) {
-        try{
-            // GPS 제공자의 정보가 바뀌면 콜백하도록 리스너 등록하기~!!!
+        try {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, // 등록할 위치제공자
                     10000, // 통지사이의 최소 시간간격 (miliSecond)
                     1, // 통지사이의 최소 변경거리 (m)
@@ -152,42 +143,35 @@ public class DataActivity extends AppCompatActivity {
                     10000, // 통지사이의 최소 시간간격 (miliSecond)
                     1, // 통지사이의 최소 변경거리 (m)
                     mLocationListener);
-        }catch(SecurityException ex){
-        }
+        } catch(SecurityException ex) {}
     }
 
     private final LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
-            //여기서 위치값이 갱신되면 이벤트가 발생한다.
-            //값은 Location 형태로 리턴되며 좌표 출력 방법은 다음과 같다.
 
-            Log.d("test", "onLocationChanged, location:" + location);
             userLongitude = location.getLongitude(); //경도
             userLatitude = location.getLatitude();   //위도
-            //Gps 위치제공자에 의한 위치변화. 오차범위가 좁다.
-            //Network 위치제공자에 의한 위치변화
-            //Network 위치는 Gps에 비해 정확도가 많이 떨어진다.
 
             if (!isReady) {
                 Ready();
                 isReady = true;
             }
         }
-        public void onProviderDisabled(String provider) {
-            // Disabled시
-            Log.d("test", "onProviderDisabled, provider:" + provider);
-        }
-
-        public void onProviderEnabled(String provider) {
-            // Enabled시
-            Log.d("test", "onProviderEnabled, provider:" + provider);
-        }
-
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-            // 변경시
-            Log.d("test", "onStatusChanged, provider:" + provider + ", status:" + status + " ,Bundle:" + extras);
-        }
+        public void onProviderDisabled(String provider) {}
+        public void onProviderEnabled(String provider)  {}
+        public void onStatusChanged(String provider, int status, Bundle extras) {}
     };
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        if (view.getId() == R.id.data_list) {
+            Intent intent = new Intent(DataActivity.this, ValueActivity.class);
+            intent.putExtra("title", list.get(i).getTitle());
+            intent.putExtra("img", list.get(i).getImg());
+            intent.putExtra("id", list.get(i).getContentId());
+            startActivity(intent);
+        }
+    }
 
     private class GetXml extends AsyncTask<String, Void, Document> {
 
@@ -239,30 +223,10 @@ public class DataActivity extends AppCompatActivity {
         }
     }
 
-    private double getDistance(double lat1, double lon1, double lat2, double lon2) {
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2))
-                + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2))
-                * Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-        dist = dist * 1.609344;
-        return (dist);
-    }
-
-    private double rad2deg(double rad) {
-        return (rad * 180.0 / Math.PI);
-    }
-
-    private double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-
     @Override
     protected void onStop() {
         super.onStop();
-        locationManager.removeUpdates(mLocationListener);  //  미수신할때는 반드시 자원해체를 해주어야 한다.
+        locationManager.removeUpdates(mLocationListener);
         Log.d("AnyWhereActivity", "GPS Searching Stop!");
     }
 
