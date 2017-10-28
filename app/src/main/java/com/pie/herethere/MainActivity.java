@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     ViewPager viewPager;
     ImageView img_1, img_2, img_3;
 
+    ImageView main_img1, main_img2;
+
     LinearLayout layout;
     int height;
 
@@ -29,6 +31,11 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         img_1 = (ImageView) findViewById(R.id.main_circle_1);
         img_2 = (ImageView) findViewById(R.id.main_circle_2);
         img_3 = (ImageView) findViewById(R.id.main_circle_3);
+
+        main_img1 = (ImageView) findViewById(R.id.main_img_1);
+        main_img1.setOnClickListener(this);
+        main_img2 = (ImageView) findViewById(R.id.main_img_2);
+        main_img2.setOnClickListener(this);
 
         Search_img = (ImageView) findViewById(R.id.main_search);
         Search_img.setOnClickListener(this);
@@ -91,6 +98,17 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     public void onClick(View view) {
         if (view.getId() == R.id.main_search) {
             Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
+        }
+
+        // 오늘 날씨 어때?
+        else if (view.getId() == R.id.main_img_1) {
+
+        }
+
+        // 뭐 먹을까?
+        else if (view.getId() == R.id.main_img_2) {
+            Intent intent = new Intent(MainActivity.this, WhatEatActivity.class);
             startActivity(intent);
         }
     }
