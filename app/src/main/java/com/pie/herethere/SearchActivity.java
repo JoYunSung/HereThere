@@ -164,14 +164,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (view.getId() == R.id.search_cl_1) {
             choice = 1;
         }
-
         else if (view.getId() == R.id.search_cl_2) {
             choice = 2;
         }
-
         else if (view.getId() == R.id.search_cl_3) {
             choice = 3;
         }
+        Ready();
     }
 
     private class GetXml extends AsyncTask<String, Void, Document> {
