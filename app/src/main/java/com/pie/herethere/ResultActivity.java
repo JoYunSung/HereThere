@@ -6,8 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -18,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pie.herethere.App.AppKey;
 
@@ -38,7 +35,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
+public class ResultActivity extends AppCompatActivity implements View.OnClickListener {
 
     AppKey app;
     URL FileValue;
@@ -46,22 +43,34 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     InputMethodManager imm;
 
     ListView listView;
-    Search_ListAdapter adapter;
+    Result_ListAdapter adapter;
 
-    ArrayList<Search_ListData> list = new ArrayList<>();
-    ImageView bt_img;
-    EditText editText;
+    ArrayList<Result_ListData> list = new ArrayList<>();
 
     Document document;
 
-    String search_text, cat;
+    String result_text, cat;
+
+    TextView tv_search;
+
+    LinearLayout result_cl_li;
+    ImageView result_cl_1, result_cl_2, result_cl_3;
 
     int choice = 1;
 
     public void Declaration() {
-        listView = (ListView) findViewById(R.id.search_list);
-        bt_img = (ImageView) findViewById(R.id.search_bt_img);
-        editText = (EditText) findViewById(R.id.search_editText);
+        tv_search = (TextView)findViewById(R.id.result_searchText);
+
+        listView = (ListView) findViewById(R.id.result_list);
+
+        result_cl_li = (LinearLayout) findViewById(R.id.result_cl_li);
+        result_cl_1 = (ImageView) findViewById(R.id.result_cl_1);
+        result_cl_2 = (ImageView) findViewById(R.id.result_cl_2);
+        result_cl_3 = (ImageView) findViewById(R.id.result_cl_3);
+
+        result_cl_1.setOnClickListener(this);
+        result_cl_2.setOnClickListener(this);
+        result_cl_3.setOnClickListener(this);
 
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     }
@@ -71,7 +80,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             listView.setVisibility(View.INVISIBLE);
             list.clear();
 
-            search_text = editText.getText().toString();
+            Intent searchIntent = getIntent();
+            result_text = searchIntent.getStringExtra("inputData");
+
+            tv_search.setText(result_text);
 
             switch (choice) {
                 case 1 :
@@ -85,7 +97,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     break;
             }
 
-            FileValue = new URL(app.getAppURL() + "searchKeyword?ServiceKey=" + app.getAppKey() + "&keyword=" + URLEncoder.encode(search_text, "utf-8") +
+            FileValue = new URL(app.getAppURL() + "searchKeyword?ServiceKey=" + app.getAppKey() + "&keyword=" + URLEncoder.encode(result_text, "utf-8") +
                     "&areaCode=&sigunguCode=&cat1=" + cat + "&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=10000&pageNo=1");
 
             GetXml getXml = new GetXml();
@@ -94,7 +106,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    adapter = new Search_ListAdapter(getLayoutInflater(), list);
+                    adapter = new Result_ListAdapter(getLayoutInflater(), list);
                     listView.setAdapter(adapter);
                     listView.setVisibility(View.VISIBLE);
                 }
@@ -108,7 +120,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_result);
         app = new AppKey();
         Declaration();
 
@@ -118,32 +130,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 .build()
         );
 
-        bt_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-                Intent goResult = new Intent(SearchActivity.this, ResultActivity.class);
-                goResult.putExtra("inputData", editText.toString());
-                startActivity(goResult);
-                finish();
-            }
-        });
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-                    Ready();
-                    return true;
-                }
-                return false;
-            }
-        });
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(SearchActivity.this, ValueActivity.class);
+                Intent intent = new Intent(ResultActivity.this, ValueActivity.class);
 
                 intent.putExtra("title", list.get(i).getTitle());
                 intent.putExtra("img", list.get(i).getImg());
@@ -153,33 +143,20 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        EditText edit = (EditText)findViewById(R.id.search_editText);
-        edit.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // 입력되는 텍스트에 변화가 있을 때
-                list.clear();
-                Ready();
-            }
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-                // 입력이 끝났을 때list.clear();
-                list.clear();
-                listView.setAdapter(adapter);
-                Ready();
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // 입력하기 전에
-            }
-        });
+        Ready();
     }
 
     @Override
     public void onClick(View view) {
+        if (view.getId() == R.id.result_cl_1) {
+            choice = 1;
+        }
+        else if (view.getId() == R.id.result_cl_2) {
+            choice = 2;
+        }
+        else if (view.getId() == R.id.result_cl_3) {
+            choice = 3;
+        }
         Ready();
     }
 
@@ -222,7 +199,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                         String cat2 = Cat2List.item(0).getNodeValue().toString();
                         if ((cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203") ||
-                            cat2.equals("A0205") || cat2.equals("A0206")) || (cat1.equals("A01") || cat1.equals("A05"))) {
+                                cat2.equals("A0205") || cat2.equals("A0206")) || (cat1.equals("A01") || cat1.equals("A05"))) {
                             NodeList TitleList  = fstElmnt.getElementsByTagName("title");
                             Element TitleElement = (Element) TitleList.item(0);
                             TitleList = TitleElement.getChildNodes();
@@ -240,7 +217,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                             String contentId = conList.item(0).getNodeValue().toString();
 
-                            list.add(new Search_ListData(title, img, contentId));
+                            list.add(new Result_ListData(title, img, contentId));
                         }
                     }
                 }

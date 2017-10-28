@@ -30,6 +30,9 @@
             android:name=".SearchActivity"
             android:hardwareAccelerated="false"/>
         <activity
+            android:name=".ResultActivity"
+            android:hardwareAccelerated="false"/>
+        <activity
             android:name=".ValueActivity"
             android:hardwareAccelerated="false"/>
         <activity

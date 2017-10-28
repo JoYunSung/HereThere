@@ -4,33 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/search_cl_li"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <!-- 자연 -->
-        <ImageView
-            android:id="@+id/search_cl_1"
-            android:background="#123456"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <!-- 인문 -->
-        <ImageView
-            android:id="@+id/search_cl_2"
-            android:background="#789456"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <!-- 음식 -->
-        <ImageView
-            android:id="@+id/search_cl_3"
-            android:background="#745154"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
     <ListView
         android:id="@+id/search_list"
         android:layout_width="match_parent"

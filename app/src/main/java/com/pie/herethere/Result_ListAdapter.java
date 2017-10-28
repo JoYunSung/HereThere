@@ -11,11 +11,11 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class Search_ListAdapter extends BaseAdapter{
-    ArrayList<Search_ListData>list;
+public class Result_ListAdapter extends BaseAdapter{
+    ArrayList<Result_ListData>list;
     LayoutInflater inflater;
 
-    public Search_ListAdapter(LayoutInflater inflater, ArrayList<Search_ListData>list) {
+    public Result_ListAdapter(LayoutInflater inflater, ArrayList<Result_ListData>list) {
         this.list = list;
         this.inflater = inflater;
     }
@@ -41,11 +41,13 @@ public class Search_ListAdapter extends BaseAdapter{
             convertView = inflater.inflate(R.layout.search_custom, null);
         }
 
-        TextView title = (TextView) convertView.findViewById(R.id.search_list_title);
+        ImageView img = (ImageView) convertView.findViewById(R.id.result_list_img);
+        TextView title = (TextView) convertView.findViewById(R.id.result_list_title);
 
         Glide
                 .with(convertView.getContext())
-                .load(list.get(position).getImg().toString());
+                .load(list.get(position).getImg().toString())
+                .into(img);
 
         title.setText(list.get(position).getTitle());
 
