@@ -18,18 +18,6 @@
         android:id="@+id/aniwhere_list_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/aniwhere_list_distacne"
-        android:layout_alignStart="@+id/aniwhere_list_distacne"
-        android:layout_gravity="center"
-        android:text="Null"
-        android:textSize="25dp" />
-
-    <TextView
-        android:id="@+id/aniwhere_list_distacne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:text="Null"
         android:textSize="25dp" />

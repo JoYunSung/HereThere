@@ -34,9 +34,6 @@ public class AnyWhereActivity extends AppCompatActivity {
 
     URL FileValue;
 
-    int Code, PageNo = 1, MaxValue = 5;
-    String cat1, cat2;
-
     AppKey app;
     Document document;
 
@@ -49,29 +46,17 @@ public class AnyWhereActivity extends AppCompatActivity {
     double userLongitude;
     double userLatitude;
 
+    boolean isReady = false;
 
     public void Ready() {
         try {
-            for (int i = 0; i < MaxValue; i++) {
-                Code = (int) (Math.random() * 2);
+            list.clear();
 
-                if (Code == 0) {
-                    cat1 = "A01";
-                    cat2 = "A0101";
+            FileValue = new URL(app.getAppURL() + "locationBasedList?ServiceKey=" + app.getAppKey()+ "&contentTypeId=12&mapX=" + userLongitude + "&mapY=" + userLatitude +
+                    "&radius=20000&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=1000&pageNo=1");
 
-                    PageNo = (int) (Math.random() * 138) + 1;
-                } else {
-                    cat1 = "A02";
-                    cat2 = "A0201";
-
-                    PageNo = (int) (Math.random() * 171) + 1;
-                }
-                FileValue = new URL(app.getAppURL() + "areaBasedList?ServiceKey=" + app.getAppKey() + "&contentTypeId=&areaCode=&sigunguCode=" +
-                        "&cat1=" + cat1 + "&cat2=" + cat2 + "&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=12&pageNo=" + PageNo);
-
-                GetXml getXml = new GetXml();
-                getXml.execute(String.valueOf(FileValue));
-            }
+            GetXml getXml = new GetXml();
+            getXml.execute(String.valueOf(FileValue));
 
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -79,7 +64,7 @@ public class AnyWhereActivity extends AppCompatActivity {
                     adapter = new AniWhere_ListAdapter(getLayoutInflater(), list);
                     listView.setAdapter(adapter);
                 }
-            }, 1500);
+            }, 1000);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,7 +82,6 @@ public class AnyWhereActivity extends AppCompatActivity {
 
         //위치 정보 초기화
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
         initLocationManager(locationManager);
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
@@ -106,6 +90,27 @@ public class AnyWhereActivity extends AppCompatActivity {
                 .build()
         );
 
+        final SwipeRefreshLayout refresh = (SwipeRefreshLayout) findViewById(R.id.aniwhere_swipe);
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.setVisibility(View.INVISIBLE);
+                    }
+                }, 100);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Ready();
+
+                        refresh.setRefreshing(false);
+                        listView.setVisibility(View.VISIBLE);
+                    }
+                }, 500);
+            }
+        });
     }
 
     private void initLocationManager(LocationManager locationManager) {
@@ -135,36 +140,10 @@ public class AnyWhereActivity extends AppCompatActivity {
             //Network 위치제공자에 의한 위치변화
             //Network 위치는 Gps에 비해 정확도가 많이 떨어진다.
 
-            Ready();
-
-            final SwipeRefreshLayout refresh = (SwipeRefreshLayout) findViewById(R.id.aniwhere_swipe);
-            refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            listView.setVisibility(View.INVISIBLE);
-                        }
-                    }, 100);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            list.clear();
-                            Ready();
-
-                            if (list.size() > MaxValue) {
-                                for (int i = MaxValue; i < list.size(); i++) {
-                                    list.remove(i);
-                                }
-                            }
-                            refresh.setRefreshing(false);
-                            listView.setVisibility(View.VISIBLE);
-                        }
-                    }, 500);
-                }
-            });
-
+            if (!isReady) {
+                Ready();
+                isReady = true;
+            }
         }
         public void onProviderDisabled(String provider) {
             // Disabled시
@@ -180,7 +159,6 @@ public class AnyWhereActivity extends AppCompatActivity {
             // 변경시
             Log.d("test", "onStatusChanged, provider:" + provider + ", status:" + status + " ,Bundle:" + extras);
         }
-
     };
 
     private class GetXml extends AsyncTask<String, Void, Document> {
@@ -203,47 +181,26 @@ public class AnyWhereActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Document document) {
             NodeList nodeList = document.getElementsByTagName("item");
-            Node node = nodeList.item((int)(Math.random() * 12));
-            Element fstElmnt = (Element) node;
 
-            NodeList TitleList  = fstElmnt.getElementsByTagName("title");
-            Element TitleElement = (Element) TitleList.item(0);
-            TitleList = TitleElement.getChildNodes();
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                try {
+                    Node node = nodeList.item(i);
+                    Element fstElmnt = (Element) node;
 
-            NodeList ImgList = fstElmnt.getElementsByTagName("firstimage");
-            Element ImgElement = (Element) ImgList.item(0);
-            ImgList = ImgElement.getChildNodes();
+                    NodeList TitleList  = fstElmnt.getElementsByTagName("title");
+                    Element TitleElement = (Element) TitleList.item(0);
+                    TitleList = TitleElement.getChildNodes();
 
-            NodeList MapXList = fstElmnt.getElementsByTagName("mapx");
-            Element MapXElement = (Element)MapXList.item(0);
-            MapXList = MapXElement.getChildNodes();
+                    NodeList ImgList = fstElmnt.getElementsByTagName("firstimage");
+                    Element ImgElement = (Element) ImgList.item(0);
+                    ImgList = ImgElement.getChildNodes();
 
-            NodeList MapYList = fstElmnt.getElementsByTagName("mapy");
-            Element MapYElement = (Element)MapYList.item(0 );
-            MapYList = MapYElement.getChildNodes();
+                    String img = ImgList.item(0).getNodeValue().toString();
+                    String title = TitleList.item(0).getNodeValue().toString();
 
-            String img = ImgList.item(0).getNodeValue().toString();
-            String title = TitleList.item(0).getNodeValue().toString();
-
-            //거리 계산
-            String desLat = MapXList.item(0).getNodeValue().toString();
-            String desLon = MapYList.item(0 ).getNodeValue().toString();
-
-            Location userLoc = new Location("User Location");
-            Location desLoc = new Location("Destination Location");
-
-            //사용자 좌표
-            userLoc.setLatitude(userLatitude);
-            userLoc.setLongitude(userLongitude);
-
-            //목적지 좌표
-            desLoc.setLatitude(Double.parseDouble(desLat));
-            desLoc.setLatitude(Double.parseDouble(desLon));
-
-            //거리 구하여 저장
-            String distance = Double.toString(getDistance(userLatitude,userLongitude,desLoc.getLatitude(),desLoc.getLongitude()));
-
-            list.add(new AniWhere_ListData(title, img, distance));
+                    list.add(new AniWhere_ListData(title, img));
+                } catch (Exception e) {}
+            }
             super.onPostExecute(document);
         }
     }
