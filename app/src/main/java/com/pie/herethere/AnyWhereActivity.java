@@ -1,22 +1,17 @@
 package com.pie.herethere;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.pie.herethere.App.AppKey;
 
@@ -84,7 +79,7 @@ public class AnyWhereActivity extends AppCompatActivity {
                     adapter = new AniWhere_ListAdapter(getLayoutInflater(), list);
                     listView.setAdapter(adapter);
                 }
-            }, 1000);
+            }, 1500);
 
         } catch (Exception e) {
             e.printStackTrace();
