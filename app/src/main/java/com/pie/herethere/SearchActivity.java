@@ -101,11 +101,11 @@ public class SearchActivity extends AppCompatActivity {
                                 listView.setAdapter(adapter);
                                 listView.setVisibility(View.VISIBLE);
                             }
-                        }, 1000);
+                        }, 200);
                     } catch (Exception e) { }
                 }
             }
-        }, 500);
+        }, 200);
     }
 
     @Override
