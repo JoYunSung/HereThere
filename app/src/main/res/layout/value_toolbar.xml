@@ -19,7 +19,14 @@
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/value_back"
+                    android:background="#123456"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"/>
                 <TextView
+                    android:id="@+id/value_toolbar"
                     android:text="여기저기"
                     android:textSize="30dp"
                     android:textColor="#ffffff"

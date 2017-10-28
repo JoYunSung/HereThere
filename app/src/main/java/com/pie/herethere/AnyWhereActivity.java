@@ -1,6 +1,7 @@
 package com.pie.herethere;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -11,6 +12,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.pie.herethere.App.AppKey;
@@ -109,6 +111,18 @@ public class AnyWhereActivity extends AppCompatActivity {
                         listView.setVisibility(View.VISIBLE);
                     }
                 }, 500);
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(AnyWhereActivity.this, ValueActivity.class);
+
+                intent.putExtra("title", list.get(i).getTitle());
+                intent.putExtra("img", list.get(i).getImg());
+
+                startActivity(intent);
             }
         });
     }

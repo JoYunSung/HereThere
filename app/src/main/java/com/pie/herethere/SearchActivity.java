@@ -1,6 +1,7 @@
 package com.pie.herethere;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -141,6 +143,18 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     return true;
                 }
                 return false;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(SearchActivity.this, ValueActivity.class);
+
+                intent.putExtra("title", list.get(i).getTitle());
+                intent.putExtra("img", list.get(i).getImg());
+
+                startActivity(intent);
             }
         });
     }
