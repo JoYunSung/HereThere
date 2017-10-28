@@ -6,10 +6,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,24 +32,26 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class WhatEatActivity extends AppCompatActivity {
+public class DataActivity extends AppCompatActivity {
 
     URL FileValue;
 
     AppKey app;
     Document document;
 
-    ArrayList<WhatEat_ListData> list = new ArrayList<>();
+    ArrayList<Data_ListData> list = new ArrayList<>();
 
     ListView listView;
-    WhatEat_ListAdapter adapter;
+    Data_ListAdapter adapter;
 
     LocationManager locationManager;
     double userLongitude, userLatitude;
     boolean isReady = false;
 
+    int typeId = 0;
+
     public void Declaration() {
-        listView = (ListView) findViewById(R.id.eat_list);
+        listView = (ListView) findViewById(R.id.data_list);
         listView.setDivider(null);
     }
 
@@ -57,7 +59,18 @@ public class WhatEatActivity extends AppCompatActivity {
         try {
             list.clear();
 
-            FileValue = new URL(app.getAppURL() + "locationBasedList?ServiceKey=" + app.getAppKey()+ "&contentTypeId=39&mapX=" + userLongitude + "&mapY=" + userLatitude +
+            Intent intent = getIntent();
+            String type = intent.getStringExtra("type");
+
+            switch (type) {
+                case "where" :
+                    typeId = 12;
+                    break;
+                case "eat" :
+                    typeId = 39;
+                    break;
+            }
+            FileValue = new URL(app.getAppURL() + "locationBasedList?ServiceKey=" + app.getAppKey()+ "&contentTypeId=" + typeId + "&mapX=" + userLongitude + "&mapY=" + userLatitude +
                     "&radius=20000&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=1000&pageNo=1");
 
             GetXml getXml = new GetXml();
@@ -66,7 +79,7 @@ public class WhatEatActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    adapter = new WhatEat_ListAdapter(getLayoutInflater(), list);
+                    adapter = new Data_ListAdapter(getLayoutInflater(), list);
                     listView.setAdapter(adapter);
                 }
             }, 1000);
@@ -79,7 +92,7 @@ public class WhatEatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_what_eat);
+        setContentView(R.layout.activity_data);
         app = new AppKey();
         Declaration();
 
@@ -95,7 +108,7 @@ public class WhatEatActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(WhatEatActivity.this, ValueActivity.class);
+                Intent intent = new Intent(DataActivity.this, ValueActivity.class);
 
                 intent.putExtra("title", list.get(i).getTitle());
                 intent.putExtra("img", list.get(i).getImg());
@@ -105,7 +118,7 @@ public class WhatEatActivity extends AppCompatActivity {
             }
         });
 
-        final SwipeRefreshLayout refresh = (SwipeRefreshLayout) findViewById(R.id.eat_swipe);
+        final SwipeRefreshLayout refresh = (SwipeRefreshLayout) findViewById(R.id.data_swipe);
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -219,7 +232,7 @@ public class WhatEatActivity extends AppCompatActivity {
 
                     String contentId = conList.item(0).getNodeValue().toString();
 
-                    list.add(new WhatEat_ListData(title, img, contentId));
+                    list.add(new Data_ListData(title, img, contentId));
                 } catch (Exception e) {}
             }
             super.onPostExecute(document);

@@ -11,11 +11,11 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class AniWhere_ListAdapter extends BaseAdapter {
-    ArrayList<AniWhere_ListData> list;
+public class Data_ListAdapter extends BaseAdapter {
+    ArrayList<Data_ListData> list;
     LayoutInflater inflater;
 
-    public AniWhere_ListAdapter(LayoutInflater inflater, ArrayList<AniWhere_ListData>list) {
+    public Data_ListAdapter(LayoutInflater inflater, ArrayList<Data_ListData>list) {
         this.list = list;
         this.inflater = inflater;
     }
@@ -38,11 +38,11 @@ public class AniWhere_ListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.aniwhere_custom, null);
+            convertView = inflater.inflate(R.layout.data_custom,null);
         }
 
-        ImageView img = (ImageView) convertView.findViewById(R.id.aniwhere_list_img);
-        TextView title = (TextView) convertView.findViewById(R.id.aniwhere_list_title);
+        ImageView img = (ImageView) convertView.findViewById(R.id.data_list_img);
+        TextView title = (TextView) convertView.findViewById(R.id.data_list_title);
 
         Glide
                 .with(convertView.getContext())

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pie.herethere.WhatEatActivity">
+    tools:context="com.pie.herethere.DataActivity">
     <include
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        layout="@layout/eat_toolbar"/>
+        android:layout_height="match_parent"
+        layout="@layout/data_toolbar"/>
 </LinearLayout>

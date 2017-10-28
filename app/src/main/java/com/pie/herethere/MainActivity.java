@@ -108,7 +108,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         // 뭐 먹을까?
         else if (view.getId() == R.id.main_img_2) {
-            Intent intent = new Intent(MainActivity.this, WhatEatActivity.class);
+            Intent intent = new Intent(MainActivity.this, DataActivity.class);
+            intent.putExtra("type", "eat");
             startActivity(intent);
         }
     }

@@ -38,7 +38,8 @@ public class Main_ViewPager extends PagerAdapter {
             public void onClick(View view) {
                 switch (position) {
                     case 0 :
-                        Intent intent = new Intent(container.getContext(), AnyWhereActivity.class);
+                        Intent intent = new Intent(container.getContext(), DataActivity.class);
+                        intent.putExtra("type", "where");
                         container.getContext().startActivity(intent);
                         break;
                     case 1 :

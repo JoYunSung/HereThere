@@ -30,7 +30,8 @@
             android:hardwareAccelerated="false" />
         <activity android:name=".AnyWhereActivity" />
         <activity android:name=".ValueActivity" />
-        <activity android:name=".WhatEatActivity"></activity>
+        <activity android:name=".WhatEatActivity" />
+        <activity android:name=".DataActivity"></activity>
     </application>
 
 </manifest>
