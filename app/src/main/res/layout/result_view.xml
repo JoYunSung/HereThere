@@ -4,33 +4,71 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/result_cl_li"
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <!-- 자연 -->
+        android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/result_cl_1"
-            android:background="#123456"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <!-- 인문 -->
-        <ImageView
-            android:id="@+id/result_cl_2"
-            android:background="#789456"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <!-- 음식 -->
-        <ImageView
-            android:id="@+id/result_cl_3"
-            android:background="#745154"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/search_bar2"/>
+
+        <TextView
+            android:id="@+id/result_searchText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="35dp"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:textSize="17dp"
+            android:textColor="#9a9a9a"
+            android:singleLine="true" />
+
+    </RelativeLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:scrollbars="none"
+        android:fadingEdge="none">
+        <LinearLayout
+            android:id="@+id/result_cl_li"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <!-- 자연 -->
+            <ImageView
+                android:id="@+id/result_cl_1"
+                android:layout_gravity="center_vertical"
+                android:layout_width="180dp"
+                android:scaleType="fitCenter"
+                android:layout_height="70dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/cat1" />
+            <!-- 인문 -->
+            <ImageView
+                android:id="@+id/result_cl_2"
+                android:scaleType="fitCenter"
+                android:src="@drawable/cat2"
+                android:layout_gravity="center_vertical"
+                android:layout_width="180dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="70dp"/>
+            <!-- 음식 -->
+            <ImageView
+                android:id="@+id/result_cl_3"
+                android:layout_gravity="center_vertical"
+                android:scaleType="fitCenter"
+                android:src="@drawable/cat2"
+                android:layout_width="180dp"
+                android:layout_height="70dp"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
     <ListView
         android:id="@+id/result_list"
         android:layout_width="match_parent"

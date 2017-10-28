@@ -77,11 +77,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             listView.setVisibility(View.INVISIBLE);
             list.clear();
 
-            Intent searchIntent = getIntent();
-            result_text = searchIntent.getStringExtra("inputData");
-
-            tv_search.setText(result_text);
-
             switch (choice) {
                 case 1 :
                     cat = "A01";
@@ -118,8 +113,14 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
         app = new AppKey();
         Declaration();
+
+
+        result_text = getIntent().getStringExtra("inputData");
+
+        tv_search.setText(result_text);
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("jua.ttf")

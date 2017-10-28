@@ -20,8 +20,10 @@
                 <EditText
                     android:singleLine="true"
                     android:inputType="text"
+                    android:layout_marginLeft="10dp"
                     android:id="@+id/search_editText"
                     android:imeOptions="actionSearch"
+                    android:background="@null"
                     android:hint="원하시는 지역또는 명소를 검색해주세요"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -29,10 +31,12 @@
                     android:layout_alignParentStart="true"
                     android:layout_toStartOf="@+id/search_bt_img" />
                 <ImageView
-                    android:background="#123456"
                     android:id="@+id/search_bt_img"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:src="@drawable/nextbt"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:onClick="onClick"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"/>

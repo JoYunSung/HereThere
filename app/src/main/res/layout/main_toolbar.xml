@@ -16,24 +16,27 @@
             android:background="#03a9f4"
             app:popupTheme="@style/AppTheme.PopupOverlay">
             <RelativeLayout
-                android:layout_marginBottom="0.2dp"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_marginTop="2dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
                 <ImageView
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/bookmark1"/>
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/bookmark1" />
+
                 <TextView
-                    android:text="여기저기"
-                    android:textSize="30dp"
-                    android:textColor="#ffffff"
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:text="여기저기"
+                    android:textColor="#ffffff"
+                    android:textSize="30dp" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

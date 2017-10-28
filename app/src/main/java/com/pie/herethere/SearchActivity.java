@@ -114,7 +114,10 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                 Intent goResult = new Intent(SearchActivity.this, ResultActivity.class);
-                goResult.putExtra("inputData", editText.toString());
+
+                String inputData = editText.getText().toString();
+
+                goResult.putExtra("inputData", inputData);
                 startActivity(goResult);
                 finish();
             }

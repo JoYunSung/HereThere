@@ -38,7 +38,7 @@ public class Result_ListAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.search_custom, null);
+            convertView = inflater.inflate(R.layout.result_custom, null);
         }
 
         ImageView img = (ImageView) convertView.findViewById(R.id.result_list_img);
