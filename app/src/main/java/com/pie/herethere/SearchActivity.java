@@ -153,6 +153,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                 intent.putExtra("title", list.get(i).getTitle());
                 intent.putExtra("img", list.get(i).getImg());
+                intent.putExtra("id", list.get(i).getContentId());
 
                 startActivity(intent);
             }

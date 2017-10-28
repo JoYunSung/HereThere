@@ -18,6 +18,8 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
     ImageView value_back, value_img;
     TextView value_toolbar;
 
+    String contentId;
+
     public void Declaration() {
         value_back = (ImageView) findViewById(R.id.value_back);
         value_back.setOnClickListener(this);
@@ -46,6 +48,8 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
                 .with(getApplicationContext())
                 .load(intent.getStringExtra("img"))
                 .into(value_img);
+
+        contentId = intent.getStringExtra("id");
     }
 
     @Override
