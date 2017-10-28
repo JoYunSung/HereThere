@@ -6,12 +6,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -198,8 +195,10 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                         Cat2List = Cat2Element.getChildNodes();
 
                         String cat2 = Cat2List.item(0).getNodeValue().toString();
-                        if ((cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203") ||
+                        if ((cat2.equals("A0101") || cat2.equals("A0102") ||
+                                cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203") ||
                                 cat2.equals("A0205") || cat2.equals("A0206")) || (cat1.equals("A01") || cat1.equals("A05"))) {
+
                             NodeList TitleList  = fstElmnt.getElementsByTagName("title");
                             Element TitleElement = (Element) TitleList.item(0);
                             TitleList = TitleElement.getChildNodes();

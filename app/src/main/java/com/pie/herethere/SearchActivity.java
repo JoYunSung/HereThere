@@ -54,7 +54,7 @@ public class SearchActivity extends AppCompatActivity {
 
     String search_text, cat;
 
-    int choice = 1, update = 0;
+    int update = 0;
 
     public void Declaration() {
         listView = (ListView) findViewById(R.id.search_list);
@@ -76,27 +76,11 @@ public class SearchActivity extends AppCompatActivity {
 
                         search_text = editText.getText().toString();
 
-                        for (int i = 0; i < 3; i++) {
-                            choice++;
-                            switch (choice) {
-                                case 1 :
-                                    cat = "A01";
-                                    break;
-                                case 2 :
-                                    cat = "A02";
-                                    break;
-                                case 3 :
-                                    cat = "A05";
-                                    break;
-                            }
-                            FileValue = new URL(app.getAppURL() + "searchKeyword?ServiceKey=" + app.getAppKey() + "&keyword=" + URLEncoder.encode(search_text, "utf-8") +
-                                    "&areaCode=&sigunguCode=&cat1=" + cat + "&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=10000&pageNo=1");
+                        FileValue = new URL(app.getAppURL() + "searchKeyword?ServiceKey=" + app.getAppKey() + "&keyword=" + URLEncoder.encode(search_text, "utf-8") +
+                                "&areaCode=&sigunguCode=&cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=10000&pageNo=1");
 
-                            GetXml getXml = new GetXml();
-                            getXml.execute(String.valueOf(FileValue));
-
-                        }
-                        choice = 1;
+                        GetXml getXml = new GetXml();
+                        getXml.execute(String.valueOf(FileValue));
 
                         new Handler().postDelayed(new Runnable() {
                             @Override
@@ -209,39 +193,33 @@ public class SearchActivity extends AppCompatActivity {
                     Node node = nodeList.item(i);
                     Element fstElmnt = (Element) node;
 
-                    NodeList Cat1List  = fstElmnt.getElementsByTagName("cat1");
-                    Element Cat1Element = (Element) Cat1List.item(0);
-                    Cat1List = Cat1Element.getChildNodes();
+                    NodeList Cat2List  = fstElmnt.getElementsByTagName("cat2");
+                    Element Cat2Element = (Element) Cat2List.item(0);
+                    Cat2List = Cat2Element.getChildNodes();
 
-                    String cat1 = Cat1List.item(0).getNodeValue().toString();
+                    String cat2 = Cat2List.item(0).getNodeValue().toString();
+                    if (cat2.equals("A0101") || cat2.equals("A0102") ||
+                        cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203") ||
+                        cat2.equals("A0205") || cat2.equals("A0206")) {
 
-                    if (cat1.equals("A01") || cat1.equals("A02")) {
-                        NodeList Cat2List  = fstElmnt.getElementsByTagName("cat2");
-                        Element Cat2Element = (Element) Cat2List.item(0);
-                        Cat2List = Cat2Element.getChildNodes();
+                        NodeList TitleList  = fstElmnt.getElementsByTagName("title");
+                        Element TitleElement = (Element) TitleList.item(0);
+                        TitleList = TitleElement.getChildNodes();
 
-                        String cat2 = Cat2List.item(0).getNodeValue().toString();
-                        if ((cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203") ||
-                            cat2.equals("A0205") || cat2.equals("A0206")) || (cat1.equals("A01"))) {
-                            NodeList TitleList  = fstElmnt.getElementsByTagName("title");
-                            Element TitleElement = (Element) TitleList.item(0);
-                            TitleList = TitleElement.getChildNodes();
+                        NodeList ImgList = fstElmnt.getElementsByTagName("firstimage");
+                        Element ImgElement = (Element) ImgList.item(0);
+                        ImgList = ImgElement.getChildNodes();
 
-                            NodeList ImgList = fstElmnt.getElementsByTagName("firstimage");
-                            Element ImgElement = (Element) ImgList.item(0);
-                            ImgList = ImgElement.getChildNodes();
+                        String img = ImgList.item(0).getNodeValue().toString();
+                        String title = TitleList.item(0).getNodeValue().toString();
 
-                            String img = ImgList.item(0).getNodeValue().toString();
-                            String title = TitleList.item(0).getNodeValue().toString();
+                        NodeList conList = fstElmnt.getElementsByTagName("contentid");
+                        Element conElement = (Element) conList.item(0);
+                        conList = conElement.getChildNodes();
 
-                            NodeList conList = fstElmnt.getElementsByTagName("contentid");
-                            Element conElement = (Element) conList.item(0);
-                            conList = conElement.getChildNodes();
+                        String contentId = conList.item(0).getNodeValue().toString();
 
-                            String contentId = conList.item(0).getNodeValue().toString();
-
-                            list.add(new Search_ListData(title, img, contentId));
-                        }
+                        list.add(new Search_ListData(title, img, contentId));
                     }
                 }
                 super.onPostExecute(document);
