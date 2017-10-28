@@ -32,7 +32,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class DataActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class DataActivity extends AppCompatActivity {
 
     URL FileValue;
 
@@ -54,7 +54,6 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         app = new AppKey();
 
         listView = (ListView) findViewById(R.id.data_list);
-        listView.setOnItemClickListener(this);
         listView.setDivider(null);
     }
 
@@ -131,6 +130,19 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
                 }, 500);
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(DataActivity.this, ValueActivity.class);
+
+                intent.putExtra("title", list.get(i).getTitle());
+                intent.putExtra("img", list.get(i).getImg());
+                intent.putExtra("id", list.get(i).getContentId());
+
+                startActivity(intent);
+            }
+        });
     }
 
     private void initLocationManager(LocationManager locationManager) {
@@ -161,17 +173,6 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         public void onProviderEnabled(String provider)  {}
         public void onStatusChanged(String provider, int status, Bundle extras) {}
     };
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if (view.getId() == R.id.data_list) {
-            Intent intent = new Intent(DataActivity.this, ValueActivity.class);
-            intent.putExtra("title", list.get(i).getTitle());
-            intent.putExtra("img", list.get(i).getImg());
-            intent.putExtra("id", list.get(i).getContentId());
-            startActivity(intent);
-        }
-    }
 
     private class GetXml extends AsyncTask<String, Void, Document> {
 
