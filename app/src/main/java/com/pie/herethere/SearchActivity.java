@@ -76,23 +76,27 @@ public class SearchActivity extends AppCompatActivity {
 
                         search_text = editText.getText().toString();
 
-                        switch (choice) {
-                            case 1 :
-                                cat = "A01";
-                                break;
-                            case 2 :
-                                cat = "A02";
-                                break;
-                            case 3 :
-                                cat = "A05";
-                                break;
+                        for (int i = 0; i < 3; i++) {
+                            choice++;
+                            switch (choice) {
+                                case 1 :
+                                    cat = "A01";
+                                    break;
+                                case 2 :
+                                    cat = "A02";
+                                    break;
+                                case 3 :
+                                    cat = "A05";
+                                    break;
+                            }
+                            FileValue = new URL(app.getAppURL() + "searchKeyword?ServiceKey=" + app.getAppKey() + "&keyword=" + URLEncoder.encode(search_text, "utf-8") +
+                                    "&areaCode=&sigunguCode=&cat1=" + cat + "&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=10000&pageNo=1");
+
+                            GetXml getXml = new GetXml();
+                            getXml.execute(String.valueOf(FileValue));
+
                         }
-
-                        FileValue = new URL(app.getAppURL() + "searchKeyword?ServiceKey=" + app.getAppKey() + "&keyword=" + URLEncoder.encode(search_text, "utf-8") +
-                                "&areaCode=&sigunguCode=&cat1=" + cat + "&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=10000&pageNo=1");
-
-                        GetXml getXml = new GetXml();
-                        getXml.execute(String.valueOf(FileValue));
+                        choice = 1;
 
                         new Handler().postDelayed(new Runnable() {
                             @Override
@@ -101,11 +105,11 @@ public class SearchActivity extends AppCompatActivity {
                                 listView.setAdapter(adapter);
                                 listView.setVisibility(View.VISIBLE);
                             }
-                        }, 200);
+                        }, 500);
                     } catch (Exception e) { }
                 }
             }
-        }, 200);
+        }, 500);
     }
 
     @Override
@@ -211,14 +215,14 @@ public class SearchActivity extends AppCompatActivity {
 
                     String cat1 = Cat1List.item(0).getNodeValue().toString();
 
-                    if (cat1.equals("A01") || cat1.equals("A02") || cat1.equals("A05")) {
+                    if (cat1.equals("A01") || cat1.equals("A02")) {
                         NodeList Cat2List  = fstElmnt.getElementsByTagName("cat2");
                         Element Cat2Element = (Element) Cat2List.item(0);
                         Cat2List = Cat2Element.getChildNodes();
 
                         String cat2 = Cat2List.item(0).getNodeValue().toString();
                         if ((cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203") ||
-                            cat2.equals("A0205") || cat2.equals("A0206")) || (cat1.equals("A01") || cat1.equals("A05"))) {
+                            cat2.equals("A0205") || cat2.equals("A0206")) || (cat1.equals("A01"))) {
                             NodeList TitleList  = fstElmnt.getElementsByTagName("title");
                             Element TitleElement = (Element) TitleList.item(0);
                             TitleList = TitleElement.getChildNodes();
