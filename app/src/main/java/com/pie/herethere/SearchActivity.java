@@ -224,7 +224,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                             String img = ImgList.item(0).getNodeValue().toString();
                             String title = TitleList.item(0).getNodeValue().toString();
 
-                            list.add(new Search_ListData(title, img));
+                            NodeList conList = fstElmnt.getElementsByTagName("contentid");
+                            Element conElement = (Element) conList.item(0);
+                            conList = conElement.getChildNodes();
+
+                            String contentId = conList.item(0).getNodeValue().toString();
+
+                            list.add(new Search_ListData(title, img, contentId));
                         }
                     }
                 }
