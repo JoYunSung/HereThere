@@ -29,7 +29,8 @@
             android:name=".SearchActivity"
             android:hardwareAccelerated="false" />
         <activity android:name=".AnyWhereActivity" />
-        <activity android:name=".ValueActivity"></activity>
+        <activity android:name=".ValueActivity" />
+        <activity android:name=".WhatEatActivity"></activity>
     </application>
 
 </manifest>
