@@ -86,9 +86,11 @@ public class SearchActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 editText.setFocusable(false);
+
                                 adapter = new Search_ListAdapter(getLayoutInflater(), list);
                                 listView.setAdapter(adapter);
                                 listView.setVisibility(View.VISIBLE);
+
                                 editText.setFocusableInTouchMode(true);
                                 editText.setFocusable(true);
                                 editText.requestFocus();
