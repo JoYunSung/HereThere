@@ -127,8 +127,6 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
                     imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-                    Update();
-                    Ready();
                     return true;
                 }
                 return false;
@@ -159,8 +157,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable arg0) {
-                Update();
-                Ready();
+
             }
 
             @Override

@@ -51,7 +51,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     TextView tv_search;
 
     LinearLayout result_cl_li;
-    ImageView result_cl_1, result_cl_2, result_cl_3;
+    ImageView result_cl_1, result_cl_2;
 
     int choice = 1;
 
@@ -63,11 +63,9 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         result_cl_li = (LinearLayout) findViewById(R.id.result_cl_li);
         result_cl_1 = (ImageView) findViewById(R.id.result_cl_1);
         result_cl_2 = (ImageView) findViewById(R.id.result_cl_2);
-        result_cl_3 = (ImageView) findViewById(R.id.result_cl_3);
 
         result_cl_1.setOnClickListener(this);
         result_cl_2.setOnClickListener(this);
-        result_cl_3.setOnClickListener(this);
 
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     }
@@ -83,9 +81,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                     break;
                 case 2 :
                     cat = "A02";
-                    break;
-                case 3 :
-                    cat = "A05";
                     break;
             }
 
@@ -152,9 +147,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         else if (view.getId() == R.id.result_cl_2) {
             choice = 2;
         }
-        else if (view.getId() == R.id.result_cl_3) {
-            choice = 3;
-        }
         Ready();
     }
 
@@ -184,41 +176,33 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                     Node node = nodeList.item(i);
                     Element fstElmnt = (Element) node;
 
-                    NodeList Cat1List  = fstElmnt.getElementsByTagName("cat1");
-                    Element Cat1Element = (Element) Cat1List.item(0);
-                    Cat1List = Cat1Element.getChildNodes();
+                    NodeList Cat2List  = fstElmnt.getElementsByTagName("cat2");
+                    Element Cat2Element = (Element) Cat2List.item(0);
+                    Cat2List = Cat2Element.getChildNodes();
 
-                    String cat1 = Cat1List.item(0).getNodeValue().toString();
+                    String cat2 = Cat2List.item(0).getNodeValue().toString();
+                    if (cat2.equals("A0101") || cat2.equals("A0102") ||
+                            cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203") ||
+                            cat2.equals("A0205") || cat2.equals("A0206")) {
 
-                    if (cat1.equals("A01") || cat1.equals("A02") || cat1.equals("A05")) {
-                        NodeList Cat2List  = fstElmnt.getElementsByTagName("cat2");
-                        Element Cat2Element = (Element) Cat2List.item(0);
-                        Cat2List = Cat2Element.getChildNodes();
+                        NodeList TitleList  = fstElmnt.getElementsByTagName("title");
+                        Element TitleElement = (Element) TitleList.item(0);
+                        TitleList = TitleElement.getChildNodes();
 
-                        String cat2 = Cat2List.item(0).getNodeValue().toString();
-                        if ((cat2.equals("A0101") || cat2.equals("A0102") ||
-                                cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203") ||
-                                cat2.equals("A0205") || cat2.equals("A0206")) || (cat1.equals("A01") || cat1.equals("A05"))) {
+                        NodeList ImgList = fstElmnt.getElementsByTagName("firstimage");
+                        Element ImgElement = (Element) ImgList.item(0);
+                        ImgList = ImgElement.getChildNodes();
 
-                            NodeList TitleList  = fstElmnt.getElementsByTagName("title");
-                            Element TitleElement = (Element) TitleList.item(0);
-                            TitleList = TitleElement.getChildNodes();
+                        String img = ImgList.item(0).getNodeValue().toString();
+                        String title = TitleList.item(0).getNodeValue().toString();
 
-                            NodeList ImgList = fstElmnt.getElementsByTagName("firstimage");
-                            Element ImgElement = (Element) ImgList.item(0);
-                            ImgList = ImgElement.getChildNodes();
+                        NodeList conList = fstElmnt.getElementsByTagName("contentid");
+                        Element conElement = (Element) conList.item(0);
+                        conList = conElement.getChildNodes();
 
-                            String img = ImgList.item(0).getNodeValue().toString();
-                            String title = TitleList.item(0).getNodeValue().toString();
+                        String contentId = conList.item(0).getNodeValue().toString();
 
-                            NodeList conList = fstElmnt.getElementsByTagName("contentid");
-                            Element conElement = (Element) conList.item(0);
-                            conList = conElement.getChildNodes();
-
-                            String contentId = conList.item(0).getNodeValue().toString();
-
-                            list.add(new Result_ListData(title, img, contentId));
-                        }
+                        list.add(new Result_ListData(title, img, contentId));
                     }
                 }
                 super.onPostExecute(document);
