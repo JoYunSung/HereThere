@@ -31,6 +31,8 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
     boolean isBookMarkOk = false;
     ImageView bookMark;
 
+    String ver = "";
+
     public void Declaration() {
         value_back = (ImageView) findViewById(R.id.value_back);
         value_back.setOnClickListener(this);

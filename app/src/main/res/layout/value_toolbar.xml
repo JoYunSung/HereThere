@@ -21,10 +21,11 @@
                 android:layout_height="match_parent">
                 <ImageView
                     android:id="@+id/value_back"
-                    android:background="#123456"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"/>
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/beforebt" />
                 <TextView
                     android:id="@+id/value_toolbar"
                     android:text="여기저기"

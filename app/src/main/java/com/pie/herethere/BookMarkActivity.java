@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -40,6 +42,27 @@ public class BookMarkActivity extends AppCompatActivity {
                 .build()
         );
 
+        TimerTask adTast = new TimerTask() {
+            public void run() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    list.clear();
+                                    getFile();
+                                } catch (Exception e) { }
+                            }
+                        });
+                    }
+                }).start();
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(adTast, 0, 3000);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,6 +70,19 @@ public class BookMarkActivity extends AppCompatActivity {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(BookMarkActivity.this, ValueActivity.class);
+                intent.putExtra("title", list.get(i).getTitle());
+                intent.putExtra("img", list.get(i).getImg());
+                intent.putExtra("id", list.get(i).getContentId());
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void getFile() {
         File directory = new File("/data/data/com.pie.herethere/files");
         File[] files = directory.listFiles();
 
@@ -71,18 +107,6 @@ public class BookMarkActivity extends AppCompatActivity {
         }
         adapter = new Book_ListAdapter(getLayoutInflater(), list);
         listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(BookMarkActivity.this, ValueActivity.class);
-                intent.putExtra("title", list.get(i).getTitle());
-                intent.putExtra("img", list.get(i).getImg());
-                intent.putExtra("id", list.get(i).getContentId());
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 
     @Override

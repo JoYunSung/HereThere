@@ -9,6 +9,10 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -24,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     int height;
 
     ImageView Search_img, Main_book;
+    boolean isClick_BackButtonOK = false;
 
     public void Declaration() {
         viewPager = (ViewPager) findViewById(R.id.main_viewPager);
@@ -157,4 +162,20 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     protected void attachBaseContext (Context newBase){
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
+    @Override
+    public void onBackPressed() {
+        if (!isClick_BackButtonOK) {
+            isClick_BackButtonOK = true;
+            new Timer().schedule(new TimerTask() {
+                public void run() {
+                    isClick_BackButtonOK = false;
+                }
+            }, 2000);
+            Toast.makeText(this, back_String, Toast.LENGTH_SHORT).show();
+        } else {
+            finish();
+        }
+    }
+    public String back_String = "뒤로 버튼을 한번 더 누르시면 종료됩니다.";
 }
