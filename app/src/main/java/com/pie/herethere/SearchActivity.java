@@ -85,9 +85,13 @@ public class SearchActivity extends AppCompatActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                editText.setFocusable(false);
                                 adapter = new Search_ListAdapter(getLayoutInflater(), list);
                                 listView.setAdapter(adapter);
                                 listView.setVisibility(View.VISIBLE);
+                                editText.setFocusableInTouchMode(true);
+                                editText.setFocusable(true);
+                                editText.requestFocus();
                             }
                         }, 500);
                     } catch (Exception e) { }
@@ -122,6 +126,7 @@ public class SearchActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -146,8 +151,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        EditText edit = (EditText)findViewById(R.id.search_editText);
-        edit.addTextChangedListener(new TextWatcher() {
+        editText.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -157,12 +161,20 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable arg0) {
-
+                Update();
+                Ready();
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // 입력하기 전에
+            }
+        });
+
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editText.setFocusable(true);
             }
         });
     }

@@ -54,6 +54,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     ImageView result_cl_1, result_cl_2;
 
     int choice = 1;
+    ImageView back;
 
     public void Declaration() {
         tv_search = (TextView)findViewById(R.id.result_searchText);
@@ -66,6 +67,8 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         result_cl_1.setOnClickListener(this);
         result_cl_2.setOnClickListener(this);
+
+        back = (ImageView) findViewById(R.id.result_back);
 
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     }
@@ -112,7 +115,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         app = new AppKey();
         Declaration();
 
-
         result_text = getIntent().getStringExtra("inputData");
 
         tv_search.setText(result_text);
@@ -137,6 +139,13 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         });
 
         Ready();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override

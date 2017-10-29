@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     LinearLayout layout;
     int height;
 
-    ImageView Search_img;
+    ImageView Search_img, Main_book;
 
     public void Declaration() {
         viewPager = (ViewPager) findViewById(R.id.main_viewPager);
@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         Search_img = (ImageView) findViewById(R.id.main_search);
         Search_img.setOnClickListener(this);
+
+        Main_book = (ImageView) findViewById(R.id.main_book);
+        Main_book.setOnClickListener(this);
 
         layout = (LinearLayout) findViewById(R.id.main_li);
     }
@@ -110,6 +113,12 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         else if (view.getId() == R.id.main_img_2) {
             Intent intent = new Intent(MainActivity.this, DataActivity.class);
             intent.putExtra("type", "eat");
+            startActivity(intent);
+        }
+
+        // 북마크
+        else if (view.getId() == R.id.main_book) {
+            Intent intent = new Intent(MainActivity.this, BookMarkActivity.class);
             startActivity(intent);
         }
     }

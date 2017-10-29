@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
@@ -56,21 +55,25 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
 
         Intent intent = getIntent();
 
-        value_toolbar.setText(intent.getStringExtra("title"));
+        final String title = intent.getStringExtra("title");
+        final String img = intent.getStringExtra("img");
+
+        value_toolbar.setText(title);
         Glide
                 .with(getApplicationContext())
-                .load(intent.getStringExtra("img"))
+                .load(img)
                 .into(value_img);
 
         contentId = intent.getStringExtra("id");
 
         try {
-            FileInputStream fis = openFileInput("Book-" + contentId + ".txt");
+            FileInputStream fis = openFileInput("Book " + contentId + " .txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
 
-            if (br.readLine().equals("북마크")) {
+            String str = br.readLine();
+
+            if (str.equals(title)) {
                 isBookMarkOk = true;
-                Toast.makeText(getApplicationContext(), "북마크 사용", Toast.LENGTH_SHORT).show();
             }
 
             br.close();
@@ -80,29 +83,27 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
         bookMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String str;
                 if (isBookMarkOk) {
                     // 북마크가 되어있을 시
-                    File file = new File("Book-" + contentId + ".txt");
-                    file.delete();
-
+                    str = "해제";
                     isBookMarkOk = false;
-                    Toast.makeText(getApplicationContext(), "북마크 해제", Toast.LENGTH_SHORT).show();
-
                 } else {
                     // 북마크가 되어있지않을 시
-                    try {
-                        FileOutputStream fo = openFileOutput("Book-" + contentId + ".txt", Context.MODE_PRIVATE);
-                        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fo, "UTF-8"));
-
-                        bw.write("북마크");
-                        bw.close();
-                        fo.flush();
-                        fo.close();
-
-                        isBookMarkOk = true;
-                        Toast.makeText(getApplicationContext(), "북마크 사용", Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) { }
+                    str = title;
+                    isBookMarkOk = true;
                 }
+                try {
+                    FileOutputStream fo = openFileOutput("Book " + contentId + " .txt", Context.MODE_PRIVATE);
+                    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fo, "UTF-8"));
+
+                    bw.write(str + "\n" + img);
+                    bw.close();
+                    fo.flush();
+                    fo.close();
+
+                    Toast.makeText(getApplicationContext(), "북마크 " + str, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) { }
             }
         });
     }
