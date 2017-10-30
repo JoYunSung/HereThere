@@ -12,4 +12,9 @@ public class AppKey {
     public String getAppURL() {
         return AppURL;
     }
+
+    final static String WeatherAppKey = "67f2962c-39cb-3bcf-a26b-adeb3adeabba";
+    public String getWeatherAppKey() {
+        return WeatherAppKey;
+    }
 }
