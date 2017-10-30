@@ -36,7 +36,7 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
     TextView ToolbarText;
 
     Document document;
-    String Title, Img, ContentId, lat, lot;
+    String Title, Img, ContentId, lat, lon;
 
     AppKey appKey = new AppKey();
 
@@ -123,16 +123,16 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
                     String contentId = conList.item(0).getNodeValue().toString();
 
                     if (contentId.equals(ContentId)) {
-                        NodeList lotList = fstElmnt.getElementsByTagName("mapx");
+                        NodeList lonList = fstElmnt.getElementsByTagName("mapx");
                         NodeList latList = fstElmnt.getElementsByTagName("mapy");
-                        Element lotElement = (Element) lotList.item(0);
+                        Element lonElement = (Element) lonList.item(0);
                         Element latElement = (Element) latList.item(0);
-                        lotList = lotElement.getChildNodes();
+                        lonList = lonElement.getChildNodes();
                         latList = latElement.getChildNodes();
-                        lot = lotList.item(0).getNodeValue().toString();
+                        lon = lonList.item(0).getNodeValue().toString();
                         lat = latList.item(0).getNodeValue().toString();
 
-                        Toast.makeText(getApplicationContext(), lot + " : " + lat, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), lon + " : " + lat, Toast.LENGTH_SHORT).show();
                     }
                 }
                 super.onPostExecute(document);

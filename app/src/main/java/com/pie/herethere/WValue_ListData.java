@@ -2,15 +2,15 @@ package com.pie.herethere;
 
 public class WValue_ListData {
     String lat;
-    String lot;
+    String lon;
     String sky;
     String time;
 
     String getLat() {
         return lat;
     }
-    String getLot() {
-        return lot;
+    String getLon() {
+        return lon;
     }
     String getSky() {
         return sky;
@@ -19,9 +19,9 @@ public class WValue_ListData {
         return time;
     }
 
-    WValue_ListData(String lat, String lot, String sky, String time) {
+    WValue_ListData(String lat, String lon, String sky, String time) {
         this.lat = lat;
-        this.lot = lot;
+        this.lon = lon;
         this.sky = sky;
         this.time = time;
     }
