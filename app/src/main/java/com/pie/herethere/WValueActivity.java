@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -51,16 +52,15 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
     AppKey appKey = new AppKey();
     WValue_Service Service;
 
-    RecyclerView reView;
+    ListView listView;
     WValue_ListAdapter adapter;
-    ArrayList<Weather_ListData> listData = new ArrayList<>();
 
     public void Declaration() {
         BackImage = (ImageView) findViewById(R.id.wvalue_back);
         BackImage.setOnClickListener(this);
 
         BackGroundImg = (ImageView) findViewById(R.id.wvalue_img);
-        reView = (RecyclerView) findViewById(R.id.wvalue_recycler);
+        listView = (ListView) findViewById(R.id.wvalue_list);
 
         ToolbarText = (TextView) findViewById(R.id.wvalue_toolbar);
     }
@@ -145,13 +145,30 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
                         lon = lonList.item(0).getNodeValue().toString();
                         lat = latList.item(0).getNodeValue().toString();
 
-                        Toast.makeText(getApplicationContext(), lon + " : " + lat, Toast.LENGTH_SHORT).show();
+                        StartThread(Double.parseDouble(lat), Double.parseDouble(lon));
                     }
                 }
                 super.onPostExecute(document);
-            } catch (Exception e) {
-            }
+            } catch (Exception e) { }
         }
+    }
+
+    public void StartThread(final double lat, final double lon) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            getForecase3Days(lat, lon);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
     void getForecase3Days(final double latitude, final double longitude) {
@@ -164,7 +181,7 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
                 if (info.weather == null || info.weather.forecast3days.isEmpty())
                     return;
 
-                ArrayList<WValue_ListData> forecastInfo = new ArrayList<>();
+                final ArrayList<WValue_ListData> forecastInfo = new ArrayList<>();
                 int offsetHout = 3;
                 int maxHour = 49;
 
@@ -193,17 +210,14 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
                             temp = String.valueOf((int) Double.parseDouble(temp));
                     } catch (Exception e) {
                         e.printStackTrace();
+
+                        Toast.makeText(getApplicationContext(), e + "", Toast.LENGTH_SHORT).show();
                     }
                     forecastInfo.add(new WValue_ListData(lat, lon, sky, time));
                 }
-                reView.setHasFixedSize(true);
-
-
-                reView.setAdapter(adapter);
-
-                mForecastAdapter.notifyDataSetChanged();
+                adapter = new WValue_ListAdapter(getLayoutInflater(), forecastInfo);
+                listView.setAdapter(adapter);
             }
-
             @Override
             public void onFailure(Call<ForecastInfo> call, Throwable t) { }
         });
