@@ -18,11 +18,11 @@
             android:layout_weight="1.5"
             android:layout_width="match_parent"
             android:layout_height="0dp">
-            <ListView
-                android:id="@+id/wvalue_list"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/wvalue_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            </ListView>
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
