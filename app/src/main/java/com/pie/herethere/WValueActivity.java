@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -13,18 +16,31 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class WValueActivity extends AppCompatActivity implements View.OnClickListener {
 
     String Title, Img, ContentId;
-    ImageView BackImage;
+
+    ImageView BackImage, BackGroundImg;
+    TextView ToolbarText;
 
     public void Declaration() {
         BackImage = (ImageView) findViewById(R.id.wvalue_back);
         BackImage.setOnClickListener(this);
+
+        BackGroundImg = (ImageView) findViewById(R.id.wvalue_img);
+
+        ToolbarText = (TextView) findViewById(R.id.wvalue_toolbar);
     }
 
     public void GetData() {
         Intent intent = getIntent();
 
         Img = intent.getStringExtra("img");
+        Glide
+                .with(getApplicationContext())
+                .load(Img)
+                .into(BackGroundImg);
+
         Title = intent.getStringExtra("title");
+        ToolbarText.setText(Title);
+
         ContentId = intent.getStringExtra("id");
     }
 
