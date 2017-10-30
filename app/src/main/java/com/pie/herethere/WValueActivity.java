@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,11 +21,14 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
     ImageView BackImage, BackGroundImg;
     TextView ToolbarText;
 
+    ListView ListView;
+
     public void Declaration() {
         BackImage = (ImageView) findViewById(R.id.wvalue_back);
         BackImage.setOnClickListener(this);
 
         BackGroundImg = (ImageView) findViewById(R.id.wvalue_img);
+        ListView = (ListView) findViewById(R.id.wvalue_list);
 
         ToolbarText = (TextView) findViewById(R.id.wvalue_toolbar);
     }
