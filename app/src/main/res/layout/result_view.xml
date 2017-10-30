@@ -83,10 +83,11 @@
                 android:textColor="#ffffff"/>
         </RelativeLayout>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/result_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-    </ListView>
+        android:layout_marginTop="10dp"
+        android:divider="#00000000">
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

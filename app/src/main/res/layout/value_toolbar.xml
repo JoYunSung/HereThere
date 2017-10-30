@@ -29,20 +29,22 @@
                 <TextView
                     android:id="@+id/value_toolbar"
                     android:text="여기저기"
-                    android:textSize="30dp"
+                    android:textSize="20dp"
                     android:textColor="#ffffff"
                     android:layout_centerVertical="true"
                     android:gravity="center"
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
                 <ImageView
                     android:id="@+id/value_book"
-                    android:layout_marginRight="5dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/bookmark1"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"/>
+                    android:layout_marginRight="20dp"/>
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
