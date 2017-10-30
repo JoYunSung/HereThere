@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void onClick(View view) {
+        // 검색
         if (view.getId() == R.id.main_search) {
             Intent intent = new Intent(MainActivity.this, SearchActivity.class);
             startActivity(intent);
@@ -111,7 +112,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         // 오늘 날씨 어때?
         else if (view.getId() == R.id.main_img_1) {
-
+            Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
+            startActivity(intent);
         }
 
         // 뭐 먹을까?

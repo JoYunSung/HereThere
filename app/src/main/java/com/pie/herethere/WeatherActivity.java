@@ -30,7 +30,7 @@ public class WeatherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_mark);
+        setContentView(R.layout.activity_weather);
 
         listView = (ListView) findViewById(R.id.weather_list);
         back = (ImageView) findViewById(R.id.weather_back);
