@@ -50,7 +50,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
     TextView tv_search;
 
-    LinearLayout result_cl_li;
     ImageView result_cl_1, result_cl_2;
 
     int choice = 1;
@@ -61,7 +60,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         listView = (ListView) findViewById(R.id.result_list);
 
-        result_cl_li = (LinearLayout) findViewById(R.id.result_cl_li);
         result_cl_1 = (ImageView) findViewById(R.id.result_cl_1);
         result_cl_2 = (ImageView) findViewById(R.id.result_cl_2);
 
@@ -152,11 +150,22 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view.getId() == R.id.result_cl_1) {
             choice = 1;
+            result_cl_1.setImageResource(R.drawable.cat1);
+            result_cl_2.setImageResource(R.drawable.cat2);
         }
         else if (view.getId() == R.id.result_cl_2) {
             choice = 2;
+            result_cl_1.setImageResource(R.drawable.cat2);
+            result_cl_2.setImageResource(R.drawable.cat1);
         }
         Ready();
+    }
+
+    public void onSearchBar(View view) {
+        Intent goSearch = new Intent(this,SearchActivity.class);
+        goSearch.putExtra("userData", result_text);
+        startActivity(goSearch);
+        finish();
     }
 
     private class GetXml extends AsyncTask<String, Void, Document> {

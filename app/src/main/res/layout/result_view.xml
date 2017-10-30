@@ -8,11 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
+            android:id="@+id/result_searchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/search_bar2"/>
+            android:src="@drawable/search_bar2"
+            android:onClick="onSearchBar"/>
 
         <TextView
             android:id="@+id/result_searchText"
@@ -29,41 +31,62 @@
 
     </RelativeLayout>
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:scrollbars="none"
-        android:fadingEdge="none">
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/result_cl_li"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="40dp">
             <!-- 자연 -->
+
             <ImageView
                 android:id="@+id/result_cl_1"
-                android:layout_gravity="center_vertical"
                 android:layout_width="180dp"
-                android:scaleType="fitCenter"
                 android:layout_height="70dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_vertical"
+                android:layout_toStartOf="@+id/result_cl_2"
+                android:scaleType="fitCenter"
                 android:src="@drawable/cat1" />
             <!-- 인문 -->
             <ImageView
                 android:id="@+id/result_cl_2"
-                android:scaleType="fitCenter"
-                android:src="@drawable/cat2"
-                android:layout_gravity="center_vertical"
                 android:layout_width="180dp"
-                android:layout_marginRight="10dp"
-                android:layout_height="70dp"/>
-        </LinearLayout>
-    </HorizontalScrollView>
+                android:layout_height="70dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="31dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/cat2" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/result_cl_1"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/result_cl_2"
+                android:gravity="center"
+                android:text="자연 관광지"
+                android:textSize="18dp"
+                android:textColor="#ffffff"/>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/result_cl_2"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/textView2"
+                android:gravity="center"
+                android:text="인문 관광지"
+                android:textSize="18dp"
+                android:textColor="#ffffff"/>
+        </RelativeLayout>
 
     <ListView
         android:id="@+id/result_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
     </ListView>
 </LinearLayout>

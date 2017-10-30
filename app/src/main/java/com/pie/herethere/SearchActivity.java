@@ -109,6 +109,8 @@ public class SearchActivity extends AppCompatActivity {
         app = new AppKey();
         Declaration();
 
+        editText.setText(getIntent().getStringExtra("userData"));
+
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("jua.ttf")
                 .setFontAttrId(R.attr.fontPath)
