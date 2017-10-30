@@ -38,7 +38,8 @@
             android:name=".DataActivity"
             android:hardwareAccelerated="false" />
         <activity android:name=".BookMarkActivity" />
-        <activity android:name=".WeatherActivity"></activity>
+        <activity android:name=".WeatherActivity" />
+        <activity android:name=".WValueActivity"></activity>
     </application>
 
 </manifest>

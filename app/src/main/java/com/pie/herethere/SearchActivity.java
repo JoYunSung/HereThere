@@ -163,8 +163,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable arg0) {
-                Update();
-                Ready();
+
             }
 
             @Override

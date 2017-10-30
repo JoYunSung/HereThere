@@ -73,7 +73,7 @@ public class WeatherActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(WeatherActivity.this, ValueActivity.class);
+                Intent intent = new Intent(WeatherActivity.this, WValueActivity.class);
                 intent.putExtra("title", list.get(i).getTitle());
                 intent.putExtra("img", list.get(i).getImg());
                 intent.putExtra("id", list.get(i).getContentId());
