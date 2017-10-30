@@ -37,7 +37,8 @@
         <activity
             android:name=".DataActivity"
             android:hardwareAccelerated="false" />
-        <activity android:name=".BookMarkActivity"></activity>
+        <activity android:name=".BookMarkActivity" />
+        <activity android:name=".WeatherActivity"></activity>
     </application>
 
 </manifest>
