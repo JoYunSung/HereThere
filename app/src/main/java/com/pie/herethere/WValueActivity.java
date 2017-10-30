@@ -183,7 +183,7 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
 
                 final ArrayList<WValue_ListData> forecastInfo = new ArrayList<>();
                 int offsetHout = 3;
-                int maxHour = 49;
+                int maxHour = 52;
 
                 Date today = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("MM월 dd일 a hh시");
@@ -210,10 +210,11 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
                             temp = String.valueOf((int) Double.parseDouble(temp));
                     } catch (Exception e) {
                         e.printStackTrace();
-
-                        Toast.makeText(getApplicationContext(), e + "", Toast.LENGTH_SHORT).show();
                     }
-                    forecastInfo.add(new WValue_ListData(lat, lon, sky, time));
+
+                    if (hour == 4 || hour == 28 || hour == 52) {
+                        forecastInfo.add(new WValue_ListData(lat, lon, sky, time));
+                    }
                 }
                 adapter = new WValue_ListAdapter(getLayoutInflater(), forecastInfo);
                 listView.setAdapter(adapter);
