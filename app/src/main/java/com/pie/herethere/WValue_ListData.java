@@ -5,6 +5,7 @@ public class WValue_ListData {
     String lon;
     String sky;
     String time;
+    String temp;
 
     String getLat() {
         return lat;
@@ -18,11 +19,15 @@ public class WValue_ListData {
     String getTime() {
         return time;
     }
+    String getTemp() {
+        return temp;
+    }
 
-    WValue_ListData(String lat, String lon, String sky, String time) {
+    WValue_ListData(String lat, String lon, String sky, String time, String temp) {
         this.lat = lat;
         this.lon = lon;
         this.sky = sky;
         this.time = time;
+        this.temp = temp;
     }
 }

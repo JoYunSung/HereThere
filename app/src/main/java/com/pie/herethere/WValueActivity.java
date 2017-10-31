@@ -52,17 +52,25 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
     AppKey appKey = new AppKey();
     WValue_Service Service;
 
-    ListView listView;
-    WValue_ListAdapter adapter;
+    ImageView img[] = new ImageView[3];
+    TextView text[] = new TextView[3];
+    TextView ondo[] = new TextView[3];
+    Integer idGroup[] = {R.id.wvalue_img1,  R.id.wvalue_img2,  R.id.wvalue_img3,
+                         R.id.wvalue_text1, R.id.wvalue_text2, R.id.wvalue_text3,
+                         R.id.wvalue_ondo1, R.id.wvalue_ondo2, R.id.wvalue_ondo3};
 
     public void Declaration() {
         BackImage = (ImageView) findViewById(R.id.wvalue_back);
         BackImage.setOnClickListener(this);
 
         BackGroundImg = (ImageView) findViewById(R.id.wvalue_img);
-        listView = (ListView) findViewById(R.id.wvalue_list);
-
         ToolbarText = (TextView) findViewById(R.id.wvalue_toolbar);
+
+        for (int i = 0; i < 3; i++) {
+            img[i] = (ImageView) findViewById(idGroup[i]);
+            text[i] = (TextView) findViewById(idGroup[i + 3]);
+            ondo[i] = (TextView) findViewById(idGroup[i + 6]);
+        }
     }
 
     public void GetData() {
@@ -183,7 +191,7 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
 
                 final ArrayList<WValue_ListData> forecastInfo = new ArrayList<>();
                 int offsetHout = 3;
-                int maxHour = 52;
+                int maxHour = 49;
 
                 Date today = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("MM월 dd일 a hh시");
@@ -206,18 +214,40 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
                         Field tempField = forecast.fcst3hour.temperature.getClass().getField("temp" + hour + "hour");
                         temp = tempField.get(forecast.fcst3hour.temperature).toString();
 
-                        if (temp.isEmpty() == false)
+                        if (temp.isEmpty() == false) {
                             temp = String.valueOf((int) Double.parseDouble(temp));
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
-                    if (hour == 4 || hour == 28 || hour == 52) {
-                        forecastInfo.add(new WValue_ListData(lat, lon, sky, time));
+                    if (hour == 4 || hour == 28 || hour == 49) {
+                        forecastInfo.add(new WValue_ListData(lat, lon, sky, time, temp));
                     }
                 }
-                adapter = new WValue_ListAdapter(getLayoutInflater(), forecastInfo);
-                listView.setAdapter(adapter);
+                for (int i = 0; i < 3; i++) {
+                    text[i].setText(forecastInfo.get(i).sky);
+                    ondo[i].setText(forecastInfo.get(i).temp + "℃");
+
+                    switch (text[i].getText().toString()) {
+                        case "맑음" :
+                            img[i].setImageResource(R.drawable.s_1);
+                            break;
+                        case "구름조금" :
+                        case "구름많음" :
+                            img[i].setImageResource(R.drawable.s_2);
+                            break;
+                        case "흐림" :
+                            img[i].setImageResource(R.drawable.s_3);
+                            break;
+                        case "흐리고 비" :
+                        case "뇌우, 비" :
+                            img[i].setImageResource(R.drawable.s_4);
+                            break;
+                        default :
+                            img[i].setImageResource(R.drawable.s_5);
+                    }
+                }
             }
             @Override
             public void onFailure(Call<ForecastInfo> call, Throwable t) { }

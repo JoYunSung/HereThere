@@ -1,5 +1,7 @@
 package com.pie.herethere;
 
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,46 +13,43 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class Result_ListAdapter extends BaseAdapter{
-    ArrayList<Result_ListData>list;
-    LayoutInflater inflater;
+public class Result_ListAdapter extends RecyclerView.Adapter<Result_ListAdapter.ViewHolder> {
 
-    public Result_ListAdapter(LayoutInflater inflater, ArrayList<Result_ListData>list) {
+    private ArrayList<Result_ListData> list;
+
+    public Result_ListAdapter(ArrayList<Result_ListData> list) {
         this.list = list;
-        this.inflater = inflater;
     }
 
     @Override
-    public int getCount() {
+    public Result_ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.result_custom, parent, false);
+        return new ViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(Result_ListAdapter.ViewHolder holder, int position) {
+        holder.title.setText(list.get(position).getTitle());
+
+        Glide
+                .with(holder.itemView.getContext())
+                .load(list.get(position).getImg().toString())
+                .into(holder.img);
+    }
+
+    @Override
+    public int getItemCount() {
         return list.size();
     }
 
-    @Override
-    public Object getItem(int i) {
-        return list.get(i);
-    }
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView img;
+        TextView title;
 
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.result_custom, null);
+        public ViewHolder(View itemView) {
+            super(itemView);
+            img = (ImageView) itemView.findViewById(R.id.result_list_img);
+            title = (TextView) itemView.findViewById(R.id.result_list_title);
         }
-
-        ImageView img = (ImageView) convertView.findViewById(R.id.result_list_img);
-        TextView title = (TextView) convertView.findViewById(R.id.result_list_title);
-
-        Glide
-                .with(convertView.getContext())
-                .load(list.get(position).getImg().toString())
-                .into(img);
-
-        title.setText(list.get(position).getTitle());
-
-        return convertView;
     }
 }
