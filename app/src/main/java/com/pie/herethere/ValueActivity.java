@@ -1,5 +1,7 @@
 package com.pie.herethere;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -31,9 +33,6 @@ import java.net.URL;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
 public class ValueActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView value_back, value_img;
@@ -49,6 +48,8 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
 
     Document document;
     AppKey appKey;
+
+    String address;
 
     public void Declaration() {
         value_back = (ImageView) findViewById(R.id.value_back);
@@ -139,6 +140,17 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
 
         GetXml getXml = new GetXml();
         getXml.execute(url);
+
+        value_b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboardManager = (ClipboardManager)getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("label", address);
+                clipboardManager.setPrimaryClip(clipData);
+
+                Toast.makeText(getApplicationContext(), "주소가 복사되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -185,7 +197,19 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
                     String Ov = ovList.item(0).getNodeValue().toString();
                     String Addr = addrList.item(0).getNodeValue().toString();
 
-                    value_a.setText("설명 : " + Ov);
+                    String sp[];
+                    String help = "";
+
+                    try {
+                        sp = Ov.split("<br>|<br />|&nbsp;");
+                        for (int j = 0; j < sp.length; j++) {
+                            help += sp[j];
+                        }
+                    } catch (Exception e) { }
+
+                    address = Addr;
+
+                    value_a.setText("설명 : " + help);
                     value_b.setText("주소 : " + Addr);
 
                 } catch (Exception e) {}
