@@ -14,11 +14,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"/>
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/data_list_title"
@@ -37,7 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/result_card"
-            android:layout_margin="10dp"
             android:id="@+id/imageView3" />
 
 
