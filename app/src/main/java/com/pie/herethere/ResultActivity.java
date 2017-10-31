@@ -6,13 +6,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pie.herethere.App.AppKey;
 
@@ -39,7 +38,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
     InputMethodManager imm;
 
-    RecyclerView listView;
+    ListView listView;
     Result_ListAdapter adapter;
 
     ArrayList<Result_ListData> list = new ArrayList<>();
@@ -58,7 +57,8 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     public void Declaration() {
         tv_search = (TextView)findViewById(R.id.result_searchText);
 
-        listView = (RecyclerView) findViewById(R.id.result_list);
+        listView = (ListView) findViewById(R.id.result_list);
+        listView.setDivider(null);
 
         result_cl_1 = (ImageView) findViewById(R.id.result_cl_1);
         result_cl_2 = (ImageView) findViewById(R.id.result_cl_2);
@@ -76,8 +76,17 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             listView.setVisibility(View.INVISIBLE);
             list.clear();
 
+            switch (choice) {
+                case 1 :
+                    cat = "A01";
+                    break;
+                case 2 :
+                    cat = "A02";
+                    break;
+            }
+
             FileValue = new URL(app.getAppURL() + "searchKeyword?ServiceKey=" + app.getAppKey() + "&keyword=" + URLEncoder.encode(result_text, "utf-8") +
-                    "&areaCode=&sigunguCode=&cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=10000&pageNo=1");
+                    "&areaCode=&sigunguCode=&cat1=" + cat + "&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=10000&pageNo=1");
 
             GetXml getXml = new GetXml();
             getXml.execute(String.valueOf(FileValue));
@@ -85,12 +94,9 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    listView.setHasFixedSize(true);
-                    adapter = new Result_ListAdapter(list);
+                    adapter = new Result_ListAdapter(getLayoutInflater(), list);
                     listView.setAdapter(adapter);
                     listView.setVisibility(View.VISIBLE);
-
-                    adapter.notifyDataSetChanged();
                 }
             }, 1000);
 
@@ -117,7 +123,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                 .build()
         );
 
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ResultActivity.this, ValueActivity.class);
@@ -128,7 +134,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
                 startActivity(intent);
             }
-        });*/
+        });
 
         Ready();
 
@@ -194,8 +200,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
                     String cat2 = Cat2List.item(0).getNodeValue().toString();
                     if (cat2.equals("A0101") || cat2.equals("A0102") ||
-                            cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203") ||
-                            cat2.equals("A0205") || cat2.equals("A0206")) {
+                        cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203")) {
 
                         NodeList TitleList  = fstElmnt.getElementsByTagName("title");
                         Element TitleElement = (Element) TitleList.item(0);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -83,11 +83,10 @@
                 android:textColor="#ffffff"/>
         </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <ListView
         android:id="@+id/result_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layoutManager="LinearLayoutManager">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_marginTop="10dp">
+    </ListView>
 </LinearLayout>
