@@ -63,6 +63,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        if (view.getId() == R.id.main_img_1) {
+            Intent intent = new Intent(MainActivity.this, DataActivity.class);
+            intent.putExtra("type", "where");
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+
         if (view.getId() == R.id.main_img_2) {
             Intent intent = new Intent(MainActivity.this, DataActivity.class);
             intent.putExtra("type", "eat");
@@ -72,13 +79,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (view.getId() == R.id.main_img_3) {
             Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
-            startActivity(intent);
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        }
-
-        if (view.getId() == R.id.main_img_3) {
-            Intent intent = new Intent(MainActivity.this, DataActivity.class);
-            intent.putExtra("type", "where");
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
