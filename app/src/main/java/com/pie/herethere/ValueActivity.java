@@ -78,7 +78,6 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_value);
-        overridePendingTransition(R.anim.anim_right, 0);
         Declaration();
         appKey = new AppKey();
 
