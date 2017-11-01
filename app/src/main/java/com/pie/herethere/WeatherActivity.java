@@ -41,27 +41,7 @@ public class WeatherActivity extends AppCompatActivity {
                 .build()
         );
 
-        TimerTask adTast = new TimerTask() {
-            public void run() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    list.clear();
-                                    getFile();
-                                } catch (Exception e) {
-                                }
-                            }
-                        });
-                    }
-                }).start();
-            }
-        };
-        Timer timer = new Timer();
-        timer.schedule(adTast, 0, 3000);
+        getFile();
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

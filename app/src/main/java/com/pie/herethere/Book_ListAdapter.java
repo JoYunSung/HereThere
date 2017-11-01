@@ -4,7 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -39,6 +42,14 @@ public class Book_ListAdapter extends BaseAdapter {
         }
         TextView title = (TextView) convertView.findViewById(R.id.book_list_title);
         title.setText(list.get(position).getTitle());
+
+        ImageView img = (ImageView) convertView.findViewById(R.id.book_img);
+
+        Glide
+                .with(convertView.getContext())
+                .load(list.get(position).img)
+                .override(300, 300)
+                .into(img);
 
         return convertView;
     }
