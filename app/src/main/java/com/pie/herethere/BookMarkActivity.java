@@ -22,13 +22,13 @@ import java.util.TimerTask;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class BookMarkActivity extends AppCompatActivity {
+public class BookMarkActivity extends AppCompatActivity implements View.OnClickListener {
 
     ListView listView;
     ArrayList<Book_ListData> list = new ArrayList<>();
     Book_ListAdapter adapter;
 
-    ImageView back;
+    ImageView bar_bt1, bar_bt2, bar_bt4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,13 @@ public class BookMarkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_mark);
 
         listView = (ListView) findViewById(R.id.book_list);
-        back = (ImageView) findViewById(R.id.book_back);
+
+        bar_bt1 = (ImageView) findViewById(R.id.bar_bt1);
+        bar_bt1.setOnClickListener(this);
+        bar_bt2 = (ImageView) findViewById(R.id.bar_bt2);
+        bar_bt2.setOnClickListener(this);
+        bar_bt4 = (ImageView) findViewById(R.id.bar_bt4);
+        bar_bt4.setOnClickListener(this);
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("jua.ttf")
@@ -45,13 +51,6 @@ public class BookMarkActivity extends AppCompatActivity {
         );
 
         getFile();
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -63,6 +62,31 @@ public class BookMarkActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.bar_bt1) {
+            Intent intent = new Intent(BookMarkActivity.this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        }
+
+        if (view.getId() == R.id.bar_bt2) {
+            Intent intent = new Intent(BookMarkActivity.this, SearchActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        }
+
+        if (view.getId() == R.id.bar_bt4) {
+            Intent intent = new Intent(BookMarkActivity.this, SettingsActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        }
     }
 
     public void getFile() {
@@ -95,5 +119,14 @@ public class BookMarkActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext (Context newBase){
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(BookMarkActivity.this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 }

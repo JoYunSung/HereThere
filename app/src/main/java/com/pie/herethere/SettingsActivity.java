@@ -44,6 +44,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         if (view.getId() == R.id.bar_bt1) {
             Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }
 
@@ -51,6 +52,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         if (view.getId() == R.id.bar_bt2) {
             Intent intent = new Intent(SettingsActivity.this, BookMarkActivity.class);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }
 
@@ -58,6 +60,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         if (view.getId() == R.id.bar_bt3) {
             Intent intent = new Intent(SettingsActivity.this, BookMarkActivity.class);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }
     }
@@ -65,5 +68,14 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void attachBaseContext (Context newBase){
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 }

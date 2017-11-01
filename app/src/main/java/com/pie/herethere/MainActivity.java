@@ -17,49 +17,33 @@ import java.util.TimerTask;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ViewPager viewPager;
-    ImageView img_1, img_2, img_3;
-
-    ImageView main_img1, main_img2;
-
-    LinearLayout layout;
     int height;
 
-    ImageView Search_img, Main_book;
+    ImageView img1, img2, img3, bar_bt2, bar_bt3, bar_bt4;
     boolean isClick_BackButtonOK = false;
 
     public void Declaration() {
-        viewPager = (ViewPager) findViewById(R.id.main_viewPager);
+        img1 = (ImageView) findViewById(R.id.main_img_1);
+        img1.setOnClickListener(this);
+        img2 = (ImageView) findViewById(R.id.main_img_2);
+        img2.setOnClickListener(this);
+        img3 = (ImageView) findViewById(R.id.main_img_3);
+        img3.setOnClickListener(this);
 
-        img_1 = (ImageView) findViewById(R.id.main_circle_1);
-        img_2 = (ImageView) findViewById(R.id.main_circle_2);
-        img_3 = (ImageView) findViewById(R.id.main_circle_3);
-
-        main_img1 = (ImageView) findViewById(R.id.main_img_1);
-        main_img1.setOnClickListener(this);
-        main_img2 = (ImageView) findViewById(R.id.main_img_2);
-        main_img2.setOnClickListener(this);
-
-        Search_img = (ImageView) findViewById(R.id.main_search);
-        Search_img.setOnClickListener(this);
-
-        Main_book = (ImageView) findViewById(R.id.main_book);
-        Main_book.setOnClickListener(this);
-
-        layout = (LinearLayout) findViewById(R.id.main_li);
+        bar_bt2 = (ImageView) findViewById(R.id.bar_bt2);
+        bar_bt2.setOnClickListener(this);
+        bar_bt3 = (ImageView) findViewById(R.id.bar_bt3);
+        bar_bt3.setOnClickListener(this);
+        bar_bt4 = (ImageView) findViewById(R.id.bar_bt4);
+        bar_bt4.setOnClickListener(this);
     }
 
     public void Ready() {
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
         height = dm.heightPixels;
 
-        // 레이아웃 크기 - (이미지 크기 변경)
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) layout.getLayoutParams();
-        layoutParams.height = height;
-
-        layout.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -75,90 +59,52 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         setContentView(R.layout.activity_main);
         Declaration();
         Ready();
-
-        // 뷰 페이저
-        final Main_ViewPager main_viewPager = new Main_ViewPager(getLayoutInflater());
-        viewPager.setAdapter(main_viewPager);
-        viewPager.setOnPageChangeListener(this);
-
-        viewPager.setClipToPadding(false);
-        viewPager.setPageMargin(0);
-
-        viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
-            @Override public void transformPage(View page, float position) {
-                // 1
-                if (viewPager.getCurrentItem() == 0) {
-                    page.setTranslationX(height/24);
-                }
-                // 3
-                else if (viewPager.getCurrentItem() == main_viewPager.getCount() - 1) {
-                    page.setTranslationX(-(height/32));
-                }
-                // 2
-                else {
-                    page.setTranslationX(height/23);
-                }
-            }
-        });
     }
 
     @Override
     public void onClick(View view) {
-        // 검색
-        if (view.getId() == R.id.main_search) {
-            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-            startActivity(intent);
-        }
-
-        // 오늘 날씨 어때?
-        else if (view.getId() == R.id.main_img_1) {
-            Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
-            startActivity(intent);
-        }
-
-        // 뭐 먹을까?
-        else if (view.getId() == R.id.main_img_2) {
+        if (view.getId() == R.id.main_img_2) {
             Intent intent = new Intent(MainActivity.this, DataActivity.class);
             intent.putExtra("type", "eat");
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 
-        // 북마크
-        else if (view.getId() == R.id.main_book) {
+        if (view.getId() == R.id.main_img_3) {
+            Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+
+        if (view.getId() == R.id.main_img_3) {
+            Intent intent = new Intent(MainActivity.this, DataActivity.class);
+            intent.putExtra("type", "where");
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+
+        if (view.getId() == R.id.bar_bt2) {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        }
+
+        if (view.getId() == R.id.bar_bt3) {
             Intent intent = new Intent(MainActivity.this, BookMarkActivity.class);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        }
+
+        if (view.getId() == R.id.bar_bt4) {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
         }
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-    }
-
-    // 뷰 페이저 인디케이터
-    @Override
-    public void onPageSelected(int position) {
-        switch (position) {
-            case 0 :
-                img_1.setImageResource(R.drawable.circle_1);
-                img_2.setImageResource(R.drawable.circle_2);
-                img_3.setImageResource(R.drawable.circle_2);
-                break;
-            case 1 :
-                img_1.setImageResource(R.drawable.circle_2);
-                img_2.setImageResource(R.drawable.circle_1);
-                img_3.setImageResource(R.drawable.circle_2);
-                break;
-            case 2 :
-                img_1.setImageResource(R.drawable.circle_2);
-                img_2.setImageResource(R.drawable.circle_2);
-                img_3.setImageResource(R.drawable.circle_1);
-                break;
-        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-    }
 
     @Override
     protected void attachBaseContext (Context newBase){

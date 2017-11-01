@@ -291,7 +291,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
-        finish();
+        Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+        startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 }

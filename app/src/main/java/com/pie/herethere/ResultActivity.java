@@ -49,9 +49,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
     TextView tv_search;
 
-    ImageView result_cl_1, result_cl_2;
-
-    ImageView back;
+    ImageView bar_bt1, bar_bt3, bar_bt4;
 
     public void Declaration() {
         tv_search = (TextView)findViewById(R.id.result_searchText);
@@ -59,15 +57,14 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         listView = (ListView) findViewById(R.id.result_list);
         listView.setDivider(null);
 
-        result_cl_1 = (ImageView) findViewById(R.id.result_cl_1);
-        result_cl_2 = (ImageView) findViewById(R.id.result_cl_2);
-
-        result_cl_1.setOnClickListener(this);
-        result_cl_2.setOnClickListener(this);
-
-        back = (ImageView) findViewById(R.id.result_back);
-
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        bar_bt1 = (ImageView) findViewById(R.id.bar_bt1);
+        bar_bt1.setOnClickListener(this);
+        bar_bt3 = (ImageView) findViewById(R.id.bar_bt3);
+        bar_bt3.setOnClickListener(this);
+        bar_bt4 = (ImageView) findViewById(R.id.bar_bt4);
+        bar_bt4.setOnClickListener(this);
     }
 
     public void Ready() {
@@ -128,25 +125,30 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         Ready();
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.result_cl_1) {
-            result_cl_1.setImageResource(R.drawable.cat1);
-            result_cl_2.setImageResource(R.drawable.cat2);
+        if (view.getId() == R.id.bar_bt1) {
+            Intent intent = new Intent(ResultActivity.this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
         }
-        else if (view.getId() == R.id.result_cl_2) {
-            result_cl_1.setImageResource(R.drawable.cat2);
-            result_cl_2.setImageResource(R.drawable.cat1);
+
+        if (view.getId() == R.id.bar_bt3) {
+            Intent intent = new Intent(ResultActivity.this, BookMarkActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
         }
-        Ready();
+
+        if (view.getId() == R.id.bar_bt4) {
+            Intent intent = new Intent(ResultActivity.this, SettingsActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        }
     }
 
     public void onSearchBar(View view) {
@@ -220,5 +222,13 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void attachBaseContext (Context newBase){
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ResultActivity.this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 }
