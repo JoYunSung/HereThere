@@ -1,52 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#ffffff">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ececec">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/main_img_1"
-                android:layout_width="wrap_content"
-                android:layout_height="380dp"
-                android:layout_marginRight="2dp"
-                android:layout_marginLeft="2dp"
-                android:src="@drawable/main_card1"/>
-
-            <ImageView
-                android:id="@+id/main_img_2"
-                android:layout_width="wrap_content"
-                android:layout_height="380dp"
-                android:layout_marginRight="2dp"
-                android:layout_marginLeft="2dp"
-                android:src="@drawable/main_card2"/>
-
-            <ImageView
-                android:id="@+id/main_img_3"
-                android:layout_width="wrap_content"
-                android:layout_height="380dp"
-                android:layout_marginRight="2dp"
-                android:layout_marginLeft="2dp"
-                android:src="@drawable/main_card3"/>
-
-        </LinearLayout>
-    </ScrollView>
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#ffffff"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:id="@+id/relativeLayout">
 
         <ImageView
             android:id="@+id/bar_bt1"
@@ -56,7 +19,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:layout_toStartOf="@+id/bar_bt2"
-            android:src="@drawable/main_home_1" />
+            android:src="@drawable/main_home_2" />
 
         <ImageView
             android:id="@+id/bar_bt2"
@@ -93,7 +56,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/bar_bt3"
-            android:src="@drawable/main_setting_2" />
+            android:src="@drawable/main_setting_1" />
 
     </RelativeLayout>
 

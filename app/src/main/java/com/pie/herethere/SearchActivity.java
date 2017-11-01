@@ -36,7 +36,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
     AppKey app;
     URL FileValue;
@@ -47,7 +47,7 @@ public class SearchActivity extends AppCompatActivity {
     Search_ListAdapter adapter;
 
     ArrayList<Search_ListData> list = new ArrayList<>();
-    ImageView bt_img;
+    ImageView bt_img, bar_bt1, bar_bt3, bar_bt4;
     EditText editText;
 
     Document document;
@@ -61,7 +61,16 @@ public class SearchActivity extends AppCompatActivity {
         bt_img = (ImageView) findViewById(R.id.search_bt_img);
         editText = (EditText) findViewById(R.id.search_editText);
 
+        bar_bt1 = (ImageView)findViewById(R.id.bar_bt1);
+        bar_bt3 = (ImageView)findViewById(R.id.bar_bt3);
+        bar_bt4 = (ImageView)findViewById(R.id.bar_bt4);
+
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+
+        bar_bt1.setOnClickListener(this);
+        bar_bt3.setOnClickListener(this);
+        bar_bt4.setOnClickListener(this);
     }
 
     public void Ready() {
@@ -180,6 +189,30 @@ public class SearchActivity extends AppCompatActivity {
                 editText.setFocusable(true);
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        //하단 바 이미지 1
+        if (view.getId() == R.id.bar_bt1) {
+            Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        //하단 바 이미지 3
+        if (view.getId() == R.id.bar_bt3) {
+            Intent intent = new Intent(SearchActivity.this, BookMarkActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        //하단 바 이미지 4
+        if (view.getId() == R.id.bar_bt4) {
+            Intent intent = new Intent(SearchActivity.this, SettingsActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private class GetXml extends AsyncTask<String, Void, Document> {

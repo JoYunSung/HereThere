@@ -13,31 +13,27 @@
             app:contentInsetStart="0dp"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#03a9f4"
+            android:background="#ffffff"
             app:popupTheme="@style/AppTheme.PopupOverlay">
             <RelativeLayout
-                android:layout_marginTop="2dp"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
                 <ImageView
-                    android:id="@+id/main_book"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:src="@drawable/bookmark1" />
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/main_toolbargrad" />
 
-                <TextView
-                    android:id="@+id/textView"
+                <ImageView
+                    android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:text="여기저기"
-                    android:textColor="#ffffff"
-                    android:textSize="30dp" />
+                    app:srcCompat="@drawable/main_logo"
+                    android:layout_margin="15dp"/>
+
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

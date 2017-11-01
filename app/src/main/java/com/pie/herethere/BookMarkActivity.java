@@ -34,7 +34,6 @@ public class BookMarkActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_mark);
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         listView = (ListView) findViewById(R.id.book_list);
         back = (ImageView) findViewById(R.id.book_back);
@@ -51,7 +50,6 @@ public class BookMarkActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
 
@@ -63,7 +61,6 @@ public class BookMarkActivity extends AppCompatActivity {
                 intent.putExtra("img", list.get(i).getImg());
                 intent.putExtra("id", list.get(i).getContentId());
                 startActivity(intent);
-                overridePendingTransition(R.anim.anim_right, R.anim.anim_hold);
             }
         });
     }
@@ -98,11 +95,5 @@ public class BookMarkActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext (Context newBase){
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

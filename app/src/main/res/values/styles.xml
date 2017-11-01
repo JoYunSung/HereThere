@@ -9,7 +9,7 @@
 
         <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
 
-        <item name="android:statusBarColor">#0288D1</item> <!-- 상태바 색 -->
+        <item name="android:statusBarColor">#eaeaea</item> <!-- 상태바 색 -->
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
