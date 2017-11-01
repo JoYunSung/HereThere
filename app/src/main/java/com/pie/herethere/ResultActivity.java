@@ -99,6 +99,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         app = new AppKey();
         Declaration();
@@ -132,6 +133,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
     }
@@ -220,5 +222,11 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void attachBaseContext (Context newBase){
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

@@ -25,6 +25,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
         switch (getWhatKindOfNetwork(getApplicationContext())) {
             case WIFE_STATE:
                 if (isOnline())
@@ -103,6 +104,7 @@ public class SplashActivity extends AppCompatActivity {
                 } else {
                     finish();
                 }
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         }, 2000);
     }
@@ -117,5 +119,11 @@ public class SplashActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        isBackOk = true;
+        finish();
     }
 }

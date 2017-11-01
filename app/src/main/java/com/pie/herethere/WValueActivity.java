@@ -110,6 +110,7 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view.getId() == R.id.wvalue_back) {
             finish();
+            overridePendingTransition(0, R.anim.anim_left);
         }
     }
 
@@ -264,5 +265,11 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(0, R.anim.anim_left);
     }
 }

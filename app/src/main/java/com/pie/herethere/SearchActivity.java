@@ -106,6 +106,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         app = new AppKey();
         Declaration();
 
@@ -127,7 +128,6 @@ public class SearchActivity extends AppCompatActivity {
 
                 goResult.putExtra("inputData", inputData);
                 startActivity(goResult);
-                finish();
             }
         });
 
@@ -254,5 +254,11 @@ public class SearchActivity extends AppCompatActivity {
         if (update >= 100000)
             update = 0;
         update++;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

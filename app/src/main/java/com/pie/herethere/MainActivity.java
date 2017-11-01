@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         else if (view.getId() == R.id.main_img_1) {
             Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 
         // 뭐 먹을까?
@@ -121,12 +123,14 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             Intent intent = new Intent(MainActivity.this, DataActivity.class);
             intent.putExtra("type", "eat");
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 
         // 북마크
         else if (view.getId() == R.id.main_book) {
             Intent intent = new Intent(MainActivity.this, BookMarkActivity.class);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
     }
 

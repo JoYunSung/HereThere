@@ -103,6 +103,8 @@ public class DataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
         Declaration();
         SetFont();
 
@@ -141,6 +143,7 @@ public class DataActivity extends AppCompatActivity {
                 intent.putExtra("id", list.get(i).getContentId());
 
                 startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
     }
@@ -218,7 +221,7 @@ public class DataActivity extends AppCompatActivity {
                     String contentId = conList.item(0).getNodeValue().toString();
 
                     list.add(new Data_ListData(title, img, contentId));
-                } catch (Exception e) {}
+                } catch (Exception e) { }
             }
             super.onPostExecute(document);
         }
@@ -234,5 +237,11 @@ public class DataActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext (Context newBase){
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

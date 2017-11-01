@@ -78,6 +78,7 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_value);
+        overridePendingTransition(R.anim.anim_right, 0);
         Declaration();
         appKey = new AppKey();
 
@@ -168,6 +169,7 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         if (view.getId() == R.id.value_back) {
             finish();
+            overridePendingTransition(0, R.anim.anim_left);
         }
     }
 
@@ -270,5 +272,11 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
 
             super.onPostExecute(document);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(0, R.anim.anim_left);
     }
 }
