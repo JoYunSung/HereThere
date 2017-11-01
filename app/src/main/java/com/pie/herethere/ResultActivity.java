@@ -45,13 +45,12 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
     Document document;
 
-    String result_text, cat;
+    String result_text;
 
     TextView tv_search;
 
     ImageView result_cl_1, result_cl_2;
 
-    int choice = 1;
     ImageView back;
 
     public void Declaration() {
@@ -76,17 +75,8 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             listView.setVisibility(View.INVISIBLE);
             list.clear();
 
-            switch (choice) {
-                case 1 :
-                    cat = "A01";
-                    break;
-                case 2 :
-                    cat = "A02";
-                    break;
-            }
-
             FileValue = new URL(app.getAppURL() + "searchKeyword?ServiceKey=" + app.getAppKey() + "&keyword=" + URLEncoder.encode(result_text, "utf-8") +
-                    "&areaCode=&sigunguCode=&cat1=" + cat + "&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=10000&pageNo=1");
+                    "&areaCode=&sigunguCode=&cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=10000&pageNo=1");
 
             GetXml getXml = new GetXml();
             getXml.execute(String.valueOf(FileValue));
@@ -149,12 +139,10 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.result_cl_1) {
-            choice = 1;
             result_cl_1.setImageResource(R.drawable.cat1);
             result_cl_2.setImageResource(R.drawable.cat2);
         }
         else if (view.getId() == R.id.result_cl_2) {
-            choice = 2;
             result_cl_1.setImageResource(R.drawable.cat2);
             result_cl_2.setImageResource(R.drawable.cat1);
         }
