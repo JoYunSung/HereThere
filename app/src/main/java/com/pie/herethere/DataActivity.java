@@ -143,7 +143,7 @@ public class DataActivity extends AppCompatActivity {
                 intent.putExtra("id", list.get(i).getContentId());
 
                 startActivity(intent);
-                overridePendingTransition(0, 0);
+                overridePendingTransition(R.anim.anim_right, R.anim.anim_hold);
             }
         });
     }

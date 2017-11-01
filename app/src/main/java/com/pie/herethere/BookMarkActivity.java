@@ -63,7 +63,7 @@ public class BookMarkActivity extends AppCompatActivity {
                 intent.putExtra("img", list.get(i).getImg());
                 intent.putExtra("id", list.get(i).getContentId());
                 startActivity(intent);
-                overridePendingTransition(0, 0);
+                overridePendingTransition(R.anim.anim_right, R.anim.anim_hold);
             }
         });
     }
