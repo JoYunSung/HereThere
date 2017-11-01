@@ -188,7 +188,8 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
                     String cat2 = Cat2List.item(0).getNodeValue().toString();
                     if (cat2.equals("A0101") || cat2.equals("A0102") ||
-                        cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203")) {
+                        cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203") ||
+                        cat2.equals("A0205") || cat2.equals("A0206")) {
 
                         NodeList TitleList  = fstElmnt.getElementsByTagName("title");
                         Element TitleElement = (Element) TitleList.item(0);
