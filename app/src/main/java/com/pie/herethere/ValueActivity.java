@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,13 +32,14 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class ValueActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView value_back, value_img;
+    ImageView value_back;
     TextView value_toolbar;
 
     String contentId;
@@ -46,16 +50,19 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
     TextView value_a, value_b;
     ImageView naver;
 
-    Document document;
+    Value_ViewPager pager;
+    ViewPager viewPager;
+
+    Document document, document2;
     AppKey appKey;
 
-    String address;
+    String address, title, img;
+    ArrayList<Value_Data> list = new ArrayList<>();
 
     public void Declaration() {
         value_back = (ImageView) findViewById(R.id.value_back);
         value_back.setOnClickListener(this);
 
-        value_img = (ImageView) findViewById(R.id.value_img);
         bookMark = (ImageView) findViewById(R.id.value_book);
 
         value_toolbar = (TextView) findViewById(R.id.value_toolbar);
@@ -64,6 +71,7 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
         value_b = (TextView) findViewById(R.id.value_b);
 
         naver = (ImageView) findViewById(R.id.naver);
+        viewPager = (ViewPager) findViewById(R.id.value_pager);
     }
 
     @Override
@@ -75,14 +83,11 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
 
         Intent intent = getIntent();
 
-        final String title = intent.getStringExtra("title");
-        final String img = intent.getStringExtra("img");
+        title = intent.getStringExtra("title");
+        img = intent.getStringExtra("img");
+        list.add(new Value_Data(img));
 
         value_toolbar.setText(title);
-        Glide
-                .with(getApplicationContext())
-                .load(img)
-                .into(value_img);
 
         contentId = intent.getStringExtra("id");
 
@@ -140,6 +145,12 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
 
         GetXml getXml = new GetXml();
         getXml.execute(url);
+
+        String Imgurl = appKey.getAppURL() + "detailImage?ServiceKey=" + appKey.getAppKey() +
+                "&contentTypeId=&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&contentId=" + contentId + "&imageYN=Y";
+
+        GetImg getImg = new GetImg();
+        getImg.execute(Imgurl);
 
         value_b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,6 +225,49 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
 
                 } catch (Exception e) {}
             }
+            super.onPostExecute(document);
+        }
+    }
+
+    private class GetImg extends AsyncTask<String, Void, Document> {
+
+        @Override
+        protected Document doInBackground(String... urls) {
+            URL url;
+            try {
+                url = new URL(urls[0]);
+                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+                document2 = documentBuilder.parse(new InputSource(url.openStream()));
+                document2.getDocumentElement().normalize();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return document2;
+        }
+
+        @Override
+        protected void onPostExecute(Document document) {
+            NodeList nodeList = document.getElementsByTagName("item");
+
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                try {
+                    Node node = nodeList.item(i);
+                    Element fstElmnt = (Element) node;
+
+                    NodeList imgList  = fstElmnt.getElementsByTagName("originimgurl");
+                    Element imgElement = (Element) imgList.item(0);
+                    imgList = imgElement.getChildNodes();
+
+                    String uriImg = imgList.item(0).getNodeValue().toString();
+                    list.add(new Value_Data(uriImg));
+
+                } catch (Exception e) {}
+            }
+
+            pager = new Value_ViewPager(getLayoutInflater(), list);
+            viewPager.setAdapter(pager);
+
             super.onPostExecute(document);
         }
     }
