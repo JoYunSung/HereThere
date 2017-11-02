@@ -131,13 +131,20 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         bt_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-                Intent goResult = new Intent(SearchActivity.this, ResultActivity.class);
 
-                String inputData = editText.getText().toString();
+                if(!editText.getText().toString().equals("")) {
+                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                    Intent goResult = new Intent(SearchActivity.this, ResultActivity.class);
 
-                goResult.putExtra("inputData", inputData);
-                startActivity(goResult);
+                    String inputData = editText.getText().toString();
+
+                    goResult.putExtra("inputData", inputData);
+                    startActivity(goResult);
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(),"검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

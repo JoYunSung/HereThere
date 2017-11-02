@@ -51,12 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("jua.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Declaration();
@@ -105,12 +99,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }
-    }
-
-
-    @Override
-    protected void attachBaseContext (Context newBase){
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override
