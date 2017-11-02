@@ -32,7 +32,7 @@
                     android:id="@+id/search_editText"
                     android:imeOptions="actionSearch"
                     android:background="@null"
-                    android:hint="원하시는 지역또는 명소를 검색해주세요"
+                    android:hint="지역또는 명소를 검색해주세요"
                     android:textColorHint="#b8b8b8"
                     android:textColor="#9a9a9a"
                     android:layout_width="wrap_content"
