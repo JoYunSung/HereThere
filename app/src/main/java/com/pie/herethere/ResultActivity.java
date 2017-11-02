@@ -104,12 +104,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         tv_search.setText(result_text);
 
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("jua.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -217,11 +211,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             }
             catch (Exception e) { }
         }
-    }
-
-    @Override
-    protected void attachBaseContext (Context newBase){
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override
