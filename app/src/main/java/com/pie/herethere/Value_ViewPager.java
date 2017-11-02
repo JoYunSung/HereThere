@@ -51,4 +51,9 @@ public class Value_ViewPager extends PagerAdapter {
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
+
+    @Override
+    public float getPageWidth(int position) {
+        return (0.9f);
+    }
 }

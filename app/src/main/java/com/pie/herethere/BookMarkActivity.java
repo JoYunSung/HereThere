@@ -3,6 +3,8 @@ package com.pie.herethere;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -60,10 +62,9 @@ public class BookMarkActivity extends AppCompatActivity implements View.OnClickL
                 intent.putExtra("img", list.get(i).getImg());
                 intent.putExtra("id", list.get(i).getContentId());
                 startActivity(intent);
-                overridePendingTransition(0, R.anim.anim_right);
+                overridePendingTransition(R.anim.anim_right, R.anim.anim_hold);
             }
         });
-
     }
 
     @Override

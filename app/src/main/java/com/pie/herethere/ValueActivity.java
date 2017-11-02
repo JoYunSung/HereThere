@@ -7,16 +7,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.pie.herethere.App.AppKey;
 
 import org.w3c.dom.Document;
@@ -109,13 +107,13 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
                     str = "해제";
                     isBookMarkOk = false;
 
-                    Toast.makeText(getApplicationContext(), "북마크가 해제되었습니다." + str, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "북마크가 해제되었습니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     // 북마크가 되어있지않을 시
                     str = title;
                     isBookMarkOk = true;
 
-                    Toast.makeText(getApplicationContext(), "북마크 되었습니다." + str, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "북마크 되었습니다.", Toast.LENGTH_SHORT).show();
                 }
                 try {
                     FileOutputStream fo = openFileOutput("Book " + contentId + " .txt", Context.MODE_PRIVATE);
@@ -157,6 +155,25 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
                 clipboardManager.setPrimaryClip(clipData);
 
                 Toast.makeText(getApplicationContext(), "주소가 복사되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
+        final int height = dm.heightPixels;
+
+        viewPager.setClipToPadding(false);
+        viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
+            @Override
+            public void transformPage(View page, float position) {
+                if (viewPager.getCurrentItem() == 0) {
+                    page.setTranslationX(height/28);
+                }
+                else if (viewPager.getCurrentItem() == pager.getCount() - 1) {
+                    page.setTranslationX(-(height/30));
+                }
+                else {
+                    page.setTranslationX(height/29);
+                }
             }
         });
     }

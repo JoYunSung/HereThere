@@ -7,10 +7,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,6 +24,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     ImageView bar_bt1, bar_bt2, bar_bt3;
 
+    ArrayList<Settings_ListAdapter.settings_data>list = new ArrayList<>();
+    Settings_ListAdapter adapter;
+
+    ListView listView;
+
     public void Declaration() {
         bar_bt1 = (ImageView)findViewById(R.id.bar_bt1);
         bar_bt2 = (ImageView)findViewById(R.id.bar_bt2);
@@ -29,6 +37,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         bar_bt1.setOnClickListener(this);
         bar_bt2.setOnClickListener(this);
         bar_bt3.setOnClickListener(this);
+
+        listView = (ListView) findViewById(R.id.setting_list);
     }
 
     @Override
@@ -36,6 +46,26 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         Declaration();
+
+        list.add(new Settings_ListAdapter.settings_data("앱 버전"));
+        list.add(new Settings_ListAdapter.settings_data("오픈소스 라이선스"));
+        adapter = new Settings_ListAdapter(getLayoutInflater(), list);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+                    // 앱 버전
+                    case 0 :
+                        break;
+
+                    // 오픈소스 라이선스
+                    case 1 :
+                        break;
+                }
+            }
+        });
     }
 
     @Override

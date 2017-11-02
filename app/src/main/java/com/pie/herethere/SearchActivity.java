@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pie.herethere.App.AppKey;
 
@@ -161,8 +162,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra("id", list.get(i).getContentId());
 
                 startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
+                overridePendingTransition(R.anim.anim_right, R.anim.anim_hold);
             }
         });
 
