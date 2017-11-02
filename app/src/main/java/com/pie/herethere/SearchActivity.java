@@ -122,12 +122,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         editText.setText(getIntent().getStringExtra("userData"));
 
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("jua.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
-
         bt_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -288,11 +282,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
             }
         }
-    }
-
-    @Override
-    protected void attachBaseContext (Context newBase){
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     public void Update() {
