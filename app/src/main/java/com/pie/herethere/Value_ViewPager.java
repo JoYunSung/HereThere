@@ -21,6 +21,7 @@ public class Value_ViewPager extends PagerAdapter {
         this.list = list;
     }
 
+
     @Override
     public Object instantiateItem(final ViewGroup container, final int position) {
         View view = null;
