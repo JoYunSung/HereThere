@@ -1,24 +1,18 @@
 package com.pie.herethere;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,6 +22,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     Settings_ListAdapter adapter;
 
     ListView listView;
+    String ver;
 
     public void Declaration() {
         bar_bt1 = (ImageView)findViewById(R.id.bar_bt1);
@@ -52,12 +47,28 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         adapter = new Settings_ListAdapter(getLayoutInflater(), list);
         listView.setAdapter(adapter);
 
+        PackageInfo pInfo = null;
+        try {
+            pInfo = getPackageManager().getPackageInfo(this.getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        final String versionName = pInfo.versionName;
+        ver = versionName;
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
                     // 앱 버전
                     case 0 :
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                        builder.setTitle("앱 버전");
+                        builder.setMessage("현재 앱 버전은 " + ver + " 입니다.");
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                         break;
 
                     // 오픈소스 라이선스
