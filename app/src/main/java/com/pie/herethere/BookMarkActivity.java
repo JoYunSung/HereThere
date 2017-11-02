@@ -39,6 +39,9 @@ public class BookMarkActivity extends AppCompatActivity implements View.OnClickL
 
         listView = (ListView) findViewById(R.id.book_list);
 
+        adapter = new Book_ListAdapter(getLayoutInflater(), list);
+        listView.setAdapter(adapter);
+
         bar_bt1 = (ImageView) findViewById(R.id.bar_bt1);
         bar_bt1.setOnClickListener(this);
         bar_bt2 = (ImageView) findViewById(R.id.bar_bt2);
@@ -51,9 +54,6 @@ public class BookMarkActivity extends AppCompatActivity implements View.OnClickL
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
-
-        getFile();
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -65,6 +65,23 @@ public class BookMarkActivity extends AppCompatActivity implements View.OnClickL
                 overridePendingTransition(R.anim.anim_right, R.anim.anim_hold);
             }
         });
+
+        TimerTask adTast = new TimerTask() {
+            public void run() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                getFile();
+                            }
+                        });
+                    }
+                }).start();
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(adTast, 0, 1000);
     }
 
     @Override
@@ -95,6 +112,8 @@ public class BookMarkActivity extends AppCompatActivity implements View.OnClickL
         File directory = new File("/data/data/com.pie.herethere/files");
         File[] files = directory.listFiles();
 
+        list.clear();
+
         for (int i = 0; i < files.length; i++) {
             try {
                 String fileName = files[i].getName();
@@ -114,15 +133,13 @@ public class BookMarkActivity extends AppCompatActivity implements View.OnClickL
                 fis.close();
             } catch (Exception e) { }
         }
-        adapter = new Book_ListAdapter(getLayoutInflater(), list);
-        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     protected void attachBaseContext (Context newBase){
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
 
     @Override
     public void onBackPressed() {
