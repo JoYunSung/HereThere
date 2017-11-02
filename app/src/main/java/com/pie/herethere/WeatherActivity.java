@@ -31,7 +31,6 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         listView = (ListView) findViewById(R.id.weather_list);
         back = (ImageView) findViewById(R.id.weather_back);
@@ -48,7 +47,7 @@ public class WeatherActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                overridePendingTransition(0, R.anim.anim_left);
             }
         });
 
@@ -101,6 +100,6 @@ public class WeatherActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        overridePendingTransition(0, R.anim.anim_left);
     }
 }

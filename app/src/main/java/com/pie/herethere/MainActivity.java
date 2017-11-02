@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     int height;
 
-    ImageView img1, img2, img3, bar_bt2, bar_bt3, bar_bt4;
+    ImageView img1, img2, img3, bar_bt1, bar_bt2, bar_bt3, bar_bt4;
     boolean isClick_BackButtonOK = false;
 
     public void Declaration() {
@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         img3 = (ImageView) findViewById(R.id.main_img_3);
         img3.setOnClickListener(this);
 
+        bar_bt1 = (ImageView) findViewById(R.id.bar_bt1);
+        bar_bt1.setOnClickListener(this);
         bar_bt2 = (ImageView) findViewById(R.id.bar_bt2);
         bar_bt2.setOnClickListener(this);
         bar_bt3 = (ImageView) findViewById(R.id.bar_bt3);
@@ -67,20 +69,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, DataActivity.class);
             intent.putExtra("type", "where");
             startActivity(intent);
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            overridePendingTransition(R.anim.anim_right, R.anim.anim_hold);
         }
 
         if (view.getId() == R.id.main_img_2) {
             Intent intent = new Intent(MainActivity.this, DataActivity.class);
             intent.putExtra("type", "eat");
             startActivity(intent);
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            overridePendingTransition(R.anim.anim_right, R.anim.anim_hold);
         }
 
         if (view.getId() == R.id.main_img_3) {
             Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
             startActivity(intent);
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            overridePendingTransition(R.anim.anim_right, R.anim.anim_hold);
         }
 
         if (view.getId() == R.id.bar_bt2) {

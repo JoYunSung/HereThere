@@ -64,7 +64,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     case 1 :
                         Intent intent = new Intent(SettingsActivity.this, OpenSourceActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        overridePendingTransition(R.anim.anim_right, R.anim.anim_hold);
                         break;
                 }
             }
@@ -97,12 +97,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             finish();
         }
     }
-
-    @Override
-    protected void attachBaseContext (Context newBase){
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
 
     @Override
     public void onBackPressed() {

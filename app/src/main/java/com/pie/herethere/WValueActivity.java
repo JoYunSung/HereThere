@@ -102,7 +102,6 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wvalue);
         Declaration();
-        SetFont();
         GetData();
     }
 
@@ -253,18 +252,6 @@ public class WValueActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onFailure(Call<ForecastInfo> call, Throwable t) { }
         });
-    }
-
-    public void SetFont() {
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("jua.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
-    }
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

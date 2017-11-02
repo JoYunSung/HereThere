@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.pie.herethere.App.AppKey;
@@ -32,7 +33,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class DataActivity extends AppCompatActivity {
+public class DataActivity extends AppCompatActivity implements View.OnClickListener {
 
     URL FileValue;
 
@@ -40,6 +41,8 @@ public class DataActivity extends AppCompatActivity {
     Document document;
 
     ArrayList<Data_ListData> list = new ArrayList<>();
+
+    ImageView im_backbt;
 
     ListView listView;
     Data_ListAdapter adapter;
@@ -55,6 +58,9 @@ public class DataActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.data_list);
         listView.setDivider(null);
+
+        im_backbt = (ImageView) findViewById(R.id.data_back);
+        im_backbt.setOnClickListener(this);
     }
 
     public void Ready() {
@@ -103,7 +109,6 @@ public class DataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         Declaration();
         SetFont();
@@ -146,6 +151,14 @@ public class DataActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.anim_right, R.anim.anim_hold);
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.data_back) {
+            finish();
+            overridePendingTransition(0, R.anim.anim_left);
+        }
     }
 
     private void initLocationManager(LocationManager locationManager) {
@@ -242,6 +255,6 @@ public class DataActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        overridePendingTransition(0, R.anim.anim_left);
     }
 }

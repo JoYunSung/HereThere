@@ -32,34 +32,34 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/result_card"/>
+            android:src="@drawable/result_card" />
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="match_parent"
-            android:background="#ffffff"/>
+            android:background="#ececec"/>
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:background="#ffffff" />
+            android:background="#ececec" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:background="#ffffff" />
+            android:background="#ececec" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:background="#ffffff" />
-
+            android:background="#ececec" />
     </RelativeLayout>
+
 
 </RelativeLayout>

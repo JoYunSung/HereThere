@@ -3,9 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
+    <com.pie.herethere.NotoLightText
         android:id="@+id/setting_name"
         android:textSize="25dp"
+        android:layout_marginLeft="10dp"
         android:text="Null"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
