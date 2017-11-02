@@ -35,12 +35,6 @@ public class WeatherActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.weather_list);
         back = (ImageView) findViewById(R.id.weather_back);
 
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("jua.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
-
         getFile();
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -90,11 +84,6 @@ public class WeatherActivity extends AppCompatActivity {
         }
         adapter = new Weather_ListAdapter(getLayoutInflater(), list);
         listView.setAdapter(adapter);
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

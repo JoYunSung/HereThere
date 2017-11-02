@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/value_name"
             android:layout_below="@+id/value_name"
+            android:layout_marginRight="10dp"
             android:text="주소 : Null"
             android:textColor="#8c8c8c"
             android:textSize="20dp" />

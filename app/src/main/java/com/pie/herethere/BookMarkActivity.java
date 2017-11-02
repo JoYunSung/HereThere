@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -49,11 +50,6 @@ public class BookMarkActivity extends AppCompatActivity implements View.OnClickL
         bar_bt4 = (ImageView) findViewById(R.id.bar_bt4);
         bar_bt4.setOnClickListener(this);
 
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("jua.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -134,11 +130,6 @@ public class BookMarkActivity extends AppCompatActivity implements View.OnClickL
             } catch (Exception e) { }
         }
         adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void attachBaseContext (Context newBase){
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override
