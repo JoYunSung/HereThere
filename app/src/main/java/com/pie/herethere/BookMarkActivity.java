@@ -60,6 +60,7 @@ public class BookMarkActivity extends AppCompatActivity implements View.OnClickL
                 intent.putExtra("img", list.get(i).getImg());
                 intent.putExtra("id", list.get(i).getContentId());
                 startActivity(intent);
+                overridePendingTransition(0, R.anim.anim_right);
             }
         });
 

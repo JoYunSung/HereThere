@@ -40,7 +40,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class ValueActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView value_back;
-    TextView value_toolbar;
 
     String contentId;
 
@@ -65,8 +64,6 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
 
         bookMark = (ImageView) findViewById(R.id.value_book);
 
-        value_toolbar = (TextView) findViewById(R.id.value_toolbar);
-
         value_a = (TextView) findViewById(R.id.value_a);
         value_b = (TextView) findViewById(R.id.value_b);
 
@@ -86,8 +83,6 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
         title = intent.getStringExtra("title");
         img = intent.getStringExtra("img");
         list.add(new Value_Data(img));
-
-        value_toolbar.setText(title);
 
         contentId = intent.getStringExtra("id");
 
@@ -113,10 +108,14 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
                     // 북마크가 되어있을 시
                     str = "해제";
                     isBookMarkOk = false;
+
+                    Toast.makeText(getApplicationContext(), "북마크가 해제되었습니다." + str, Toast.LENGTH_SHORT).show();
                 } else {
                     // 북마크가 되어있지않을 시
                     str = title;
                     isBookMarkOk = true;
+
+                    Toast.makeText(getApplicationContext(), "북마크 되었습니다." + str, Toast.LENGTH_SHORT).show();
                 }
                 try {
                     FileOutputStream fo = openFileOutput("Book " + contentId + " .txt", Context.MODE_PRIVATE);
@@ -126,8 +125,6 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
                     bw.close();
                     fo.flush();
                     fo.close();
-
-                    Toast.makeText(getApplicationContext(), "북마크 " + str, Toast.LENGTH_SHORT).show();
                 } catch (Exception e) { }
             }
         });

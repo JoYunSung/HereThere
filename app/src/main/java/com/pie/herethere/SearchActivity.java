@@ -161,6 +161,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra("id", list.get(i).getContentId());
 
                 startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
             }
         });
 
@@ -197,6 +199,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (view.getId() == R.id.bar_bt1) {
             Intent intent = new Intent(SearchActivity.this, MainActivity.class);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }
 
@@ -204,6 +207,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (view.getId() == R.id.bar_bt3) {
             Intent intent = new Intent(SearchActivity.this, BookMarkActivity.class);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }
 
@@ -211,6 +215,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (view.getId() == R.id.bar_bt4) {
             Intent intent = new Intent(SearchActivity.this, SettingsActivity.class);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }
     }

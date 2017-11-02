@@ -50,7 +50,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         //하단 바 이미지 2
         if (view.getId() == R.id.bar_bt2) {
-            Intent intent = new Intent(SettingsActivity.this, BookMarkActivity.class);
+            Intent intent = new Intent(SettingsActivity.this, SearchActivity.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
