@@ -241,7 +241,7 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
                     String help = "";
 
                     try {
-                        sp = Ov.split("<br>|<br />|&nbsp;");
+                        sp = Ov.split("<br>|<br />|&nbsp;|<b>|</b>|&lsquo;|&rsquo;|&sup2;");
                         for (int j = 0; j < sp.length; j++) {
                             help += sp[j];
                         }
