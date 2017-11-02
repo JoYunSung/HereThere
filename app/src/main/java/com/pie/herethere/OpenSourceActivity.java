@@ -3,6 +3,8 @@ package com.pie.herethere;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ public class OpenSourceActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<Open_ListAdapter.open_data>list = new ArrayList<>();
     Open_ListAdapter adapter;
+
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,15 @@ public class OpenSourceActivity extends AppCompatActivity {
 
         adapter = new Open_ListAdapter(getLayoutInflater(), list);
         listView.setAdapter(adapter);
+
+        back = (ImageView) findViewById(R.id.open_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+        });
     }
 
     @Override
