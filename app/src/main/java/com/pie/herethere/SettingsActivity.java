@@ -62,6 +62,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
                     // 오픈소스 라이선스
                     case 1 :
+                        Intent intent = new Intent(SettingsActivity.this, OpenSourceActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         break;
                 }
             }

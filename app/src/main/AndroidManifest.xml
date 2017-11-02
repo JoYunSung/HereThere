@@ -39,8 +39,9 @@
             android:hardwareAccelerated="false" />
         <activity android:name=".BookMarkActivity" />
         <activity android:name=".WeatherActivity" />
-        <activity android:name=".WValueActivity"></activity>
-        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".WValueActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".OpenSourceActivity"></activity>
     </application>
 
 </manifest>
