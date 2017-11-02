@@ -1,39 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/value_pager"
+    android:layout_height="match_parent"
+    android:background="#ececec">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="fitXY" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/value_a"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/value_pager"
-        android:text="설명 : Null" />
+        <com.pie.herethere.NotoBoldText
+            android:id="@+id/value_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:gravity="fill"
+            android:textColor="#676767"
+            android:text="이름"
+            android:textSize="35dp"/>
 
-    <TextView
-        android:id="@+id/value_b"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:text="주소 : Null" />
+        <com.pie.herethere.NotoLightText
+            android:id="@+id/value_b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/value_name"
+            android:layout_below="@+id/value_name"
+            android:text="주소 : Null"
+            android:textColor="#8c8c8c"
+            android:textSize="20dp" />
 
-    <ImageView
-        android:id="@+id/naver"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/value_b"
-        android:scaleType="fitXY" />
-</RelativeLayout>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/value_pager"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/value_b"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitXY" />
+
+        <com.pie.herethere.NotoLightText
+            android:id="@+id/value_infor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/value_pager"
+            android:layout_marginLeft="30dp"
+            android:text="설명"
+            android:textColor="#676767"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/value_a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/value_infor"
+            android:layout_below="@+id/value_infor"
+            android:textColor="#8c8c8c"
+            android:text="설명 : Null" />
+
+        <com.pie.herethere.NotoBoldText
+            android:id="@+id/naver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/value_a"
+            android:text="웹으로 찾기"
+            android:textSize="15dp"
+            android:textColor="#0078ff"
+            android:gravity="center"
+            android:scaleType="fitXY"
+            android:layout_marginTop="15dp"/>
+    </RelativeLayout>
+</ScrollView>

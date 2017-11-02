@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,6 +36,9 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ValueActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView value_back;
@@ -44,8 +48,8 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
     boolean isBookMarkOk = false;
     ImageView bookMark;
 
-    TextView value_a, value_b;
-    ImageView naver;
+    TextView value_name, value_a, value_b, value_infor;
+    TextView naver;
 
     Value_ViewPager pager;
     ViewPager viewPager;
@@ -62,17 +66,25 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
 
         bookMark = (ImageView) findViewById(R.id.value_book);
 
+        value_name = (TextView) findViewById(R.id.value_name);
         value_a = (TextView) findViewById(R.id.value_a);
         value_b = (TextView) findViewById(R.id.value_b);
+        value_infor = (TextView) findViewById(R.id.value_infor);
 
-        naver = (ImageView) findViewById(R.id.naver);
+        naver = (TextView) findViewById(R.id.naver);
         viewPager = (ViewPager) findViewById(R.id.value_pager);
+
+        value_name.setIncludeFontPadding(false);
+        value_a.setIncludeFontPadding(false);
+        value_b.setIncludeFontPadding(false);
+        value_infor.setIncludeFontPadding(false);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_value);
+
         Declaration();
         appKey = new AppKey();
 
@@ -81,6 +93,8 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
         title = intent.getStringExtra("title");
         img = intent.getStringExtra("img");
         list.add(new Value_Data(img));
+
+        value_name.setText(title);
 
         contentId = intent.getStringExtra("id");
 
@@ -235,8 +249,8 @@ public class ValueActivity extends AppCompatActivity implements View.OnClickList
 
                     address = Addr;
 
-                    value_a.setText("설명 : " + help);
-                    value_b.setText("주소 : " + Addr);
+                    value_a.setText(help);
+                    value_b.setText(Addr);
 
                 } catch (Exception e) {}
             }
