@@ -12,6 +12,16 @@
         android:layout_alignParentStart="true"
         android:background="#ececec"
         android:divider="#ffffffff"/>
+
+    <TextView
+        android:id="@+id/book_er"
+        android:textSize="20dp"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:text="북마크가 된 관광지가 없습니다."
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"

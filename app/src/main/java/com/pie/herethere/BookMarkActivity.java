@@ -32,6 +32,7 @@ public class BookMarkActivity extends AppCompatActivity implements View.OnClickL
     Book_ListAdapter adapter;
 
     ImageView bar_bt1, bar_bt2, bar_bt4;
+    TextView er;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,8 @@ public class BookMarkActivity extends AppCompatActivity implements View.OnClickL
         bar_bt2.setOnClickListener(this);
         bar_bt4 = (ImageView) findViewById(R.id.bar_bt4);
         bar_bt4.setOnClickListener(this);
+
+        er = (TextView) findViewById(R.id.book_er);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -105,31 +108,37 @@ public class BookMarkActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void getFile() {
-        File directory = new File("/data/data/com.pie.herethere/files");
-        File[] files = directory.listFiles();
+        try {
+            File directory = new File("/data/data/com.pie.herethere/files");
+            File[] files = directory.listFiles();
 
-        list.clear();
+            list.clear();
 
-        for (int i = 0; i < files.length; i++) {
-            try {
-                String fileName = files[i].getName();
-                String sp[] = fileName.split(" ");
+            for (int i = 0; i < files.length; i++) {
+                try {
+                    String fileName = files[i].getName();
+                    String sp[] = fileName.split(" ");
 
-                FileInputStream fis = openFileInput(fileName);
-                BufferedReader br = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
+                    FileInputStream fis = openFileInput(fileName);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
 
-                String title = br.readLine();
-                String img = br.readLine();
+                    String title = br.readLine();
+                    String img = br.readLine();
 
-                if (!title.equals("해제")) {
-                    list.add(new Book_ListData(title, img, sp[1]));
-                }
+                    if (!title.equals("해제")) {
+                        list.add(new Book_ListData(title, img, sp[1]));
+                    }
 
-                br.close();
-                fis.close();
-            } catch (Exception e) { }
+                    br.close();
+                    fis.close();
+                } catch (Exception e) { }
+            }
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) { }
+
+        if (list.size() != 0) {
+            er.setVisibility(View.GONE);
         }
-        adapter.notifyDataSetChanged();
     }
 
     @Override
