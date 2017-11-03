@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,6 +27,7 @@ public class WeatherActivity extends AppCompatActivity {
     Weather_ListAdapter adapter;
 
     ImageView back;
+    TextView er;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class WeatherActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.weather_list);
         back = (ImageView) findViewById(R.id.weather_back);
+
+        er = (TextView) findViewById(R.id.weather_er);
 
         getFile();
 
@@ -59,31 +63,37 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     public void getFile() {
-        File directory = new File("/data/data/com.pie.herethere/files");
-        File[] files = directory.listFiles();
+        try {
+            File directory = new File("/data/data/com.pie.herethere/files");
+            File[] files = directory.listFiles();
 
-        for (int i = 0; i < files.length; i++) {
-            try {
-                String fileName = files[i].getName();
-                String sp[] = fileName.split(" ");
+            for (int i = 0; i < files.length; i++) {
+                try {
+                    String fileName = files[i].getName();
+                    String sp[] = fileName.split(" ");
 
-                FileInputStream fis = openFileInput(fileName);
-                BufferedReader br = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
+                    FileInputStream fis = openFileInput(fileName);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
 
-                String title = br.readLine();
-                String img = br.readLine();
+                    String title = br.readLine();
+                    String img = br.readLine();
 
-                if (!title.equals("해제")) {
-                    list.add(new Weather_ListData(title, img, sp[1]));
+                    if (!title.equals("해제")) {
+                        list.add(new Weather_ListData(title, img, sp[1]));
+                    }
+
+                    br.close();
+                    fis.close();
+                } catch (Exception e) {
                 }
-
-                br.close();
-                fis.close();
-            } catch (Exception e) {
             }
+            adapter = new Weather_ListAdapter(getLayoutInflater(), list);
+            listView.setAdapter(adapter);
+        } catch (Exception e) { }
+
+        if (list.size() != 0) {
+            er.setVisibility(View.GONE);
         }
-        adapter = new Weather_ListAdapter(getLayoutInflater(), list);
-        listView.setAdapter(adapter);
     }
 
     @Override
