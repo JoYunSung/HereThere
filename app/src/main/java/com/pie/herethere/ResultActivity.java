@@ -133,6 +133,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra("id", newList.get(i).getContentId());
 
                 startActivity(intent);
+                overridePendingTransition(R.anim.anim_right, R.anim.anim_hold);
             }
         });
 
@@ -220,7 +221,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
                             GetLoad getLoad = new GetLoad();
                             getLoad.execute(app.getAppURL() + "locationBasedList?ServiceKey=" + app.getAppKey()+ "&contentTypeId=&mapX=" + lon + "&mapY=" + lat +
-                                    "&radius=5000&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=1000&pageNo=1");
+                                    "&radius=2000&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=1000&pageNo=1");
                             isOk = false;
                         }
                         NodeList TitleList  = fstElmnt.getElementsByTagName("title");
