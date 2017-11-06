@@ -45,6 +45,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     Result_ListAdapter adapter;
 
     ArrayList<Result_ListData> list = new ArrayList<>();
+    ArrayList<Result_ListData> newList = new ArrayList<>();
 
     Document document, document2;
 
@@ -85,7 +86,20 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    adapter = new Result_ListAdapter(getLayoutInflater(), list);
+                    for (int i = 0; i < list.size(); i++) {
+                        boolean ok = true;
+                        for (int j = 0; j < i; j++) {
+                            try {
+                                if (list.get(i).getContentId().equals(newList.get(j).contentId)) {
+                                    ok = false;
+                                }
+                            } catch (Exception e) { }
+                        }
+                        if (ok == true) {
+                            newList.add(list.get(i));
+                        }
+                    }
+                    adapter = new Result_ListAdapter(getLayoutInflater(), newList);
                     listView.setAdapter(adapter);
                     listView.setVisibility(View.VISIBLE);
                 }
