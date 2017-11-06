@@ -128,9 +128,9 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ResultActivity.this, ValueActivity.class);
 
-                intent.putExtra("title", list.get(i).getTitle());
-                intent.putExtra("img", list.get(i).getImg());
-                intent.putExtra("id", list.get(i).getContentId());
+                intent.putExtra("title", newList.get(i).getTitle());
+                intent.putExtra("img", newList.get(i).getImg());
+                intent.putExtra("id", newList.get(i).getContentId());
 
                 startActivity(intent);
             }
