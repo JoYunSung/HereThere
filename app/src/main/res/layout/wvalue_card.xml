@@ -21,7 +21,10 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="관광지"
-            android:textSize="35dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:textSize="30dp" />
 
         <RelativeLayout
             android:id="@+id/tod"
