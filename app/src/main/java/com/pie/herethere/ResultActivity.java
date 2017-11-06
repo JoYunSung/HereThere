@@ -96,6 +96,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
