@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pie.herethere.App.AppKey;
 
@@ -24,6 +25,8 @@ import org.xml.sax.InputSource;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -34,7 +37,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class ResultActivity extends AppCompatActivity implements View.OnClickListener {
 
     AppKey app;
-    URL FileValue;
+    URL FileValue, LoadValue;
 
     InputMethodManager imm;
 
@@ -43,13 +46,14 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
     ArrayList<Result_ListData> list = new ArrayList<>();
 
-    Document document;
+    Document document, document2;
 
     String result_text;
 
     TextView tv_search;
 
     ImageView bar_bt1, bar_bt3, bar_bt4;
+    boolean isOk = true;
 
     public void Declaration() {
         tv_search = (TextView)findViewById(R.id.result_searchText);
@@ -171,6 +175,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         @Override
         protected void onPostExecute(Document document) {
+            double lat, lon;
             try {
                 NodeList nodeList = document.getElementsByTagName("item");
 
@@ -186,6 +191,84 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                     if (cat2.equals("A0101") || cat2.equals("A0102") ||
                         cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203") ||
                         cat2.equals("A0205") || cat2.equals("A0206")) {
+
+                        if (isOk) {
+                            NodeList xList  = fstElmnt.getElementsByTagName("mapx");
+                            Element xElement = (Element) xList.item(0);
+                            xList = xElement.getChildNodes();
+
+                            NodeList yList = fstElmnt.getElementsByTagName("mapy");
+                            Element yElement = (Element) yList.item(0);
+                            yList = yElement.getChildNodes();
+
+                            lon = Double.parseDouble(xList.item(0).getNodeValue().toString());
+                            lat = Double.parseDouble(yList.item(0).getNodeValue().toString());
+
+                            GetLoad getLoad = new GetLoad();
+                            getLoad.execute(app.getAppURL() + "locationBasedList?ServiceKey=" + app.getAppKey()+ "&contentTypeId=&mapX=" + lon + "&mapY=" + lat +
+                                    "&radius=5000&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=O&numOfRows=1000&pageNo=1");
+                            isOk = false;
+                        }
+                        NodeList TitleList  = fstElmnt.getElementsByTagName("title");
+                        Element TitleElement = (Element) TitleList.item(0);
+                        TitleList = TitleElement.getChildNodes();
+
+                        NodeList ImgList = fstElmnt.getElementsByTagName("firstimage");
+                        Element ImgElement = (Element) ImgList.item(0);
+                        ImgList = ImgElement.getChildNodes();
+
+                        String img = ImgList.item(0).getNodeValue().toString();
+                        String title = TitleList.item(0).getNodeValue().toString();
+
+                        NodeList conList = fstElmnt.getElementsByTagName("contentid");
+                        Element conElement = (Element) conList.item(0);
+                        conList = conElement.getChildNodes();
+
+                        String contentId = conList.item(0).getNodeValue().toString();
+
+                        list.add(new Result_ListData(title, img, contentId));
+                    }
+                }
+                super.onPostExecute(document);
+            }
+            catch (Exception e) { }
+        }
+    }
+
+    private class GetLoad extends AsyncTask<String, Void, Document> {
+
+        @Override
+        protected Document doInBackground(String... urls) {
+            URL url;
+            try {
+                url = new URL(urls[0]);
+                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+                document2 = documentBuilder.parse(new InputSource(url.openStream()));
+                document2.getDocumentElement().normalize();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return document2;
+        }
+
+        @Override
+        protected void onPostExecute(Document document) {
+            try {
+                NodeList nodeList = document.getElementsByTagName("item");
+
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    Node node = nodeList.item(i);
+                    Element fstElmnt = (Element) node;
+
+                    NodeList Cat2List  = fstElmnt.getElementsByTagName("cat2");
+                    Element Cat2Element = (Element) Cat2List.item(0);
+                    Cat2List = Cat2Element.getChildNodes();
+
+                    String cat2 = Cat2List.item(0).getNodeValue().toString();
+                    if (cat2.equals("A0101") || cat2.equals("A0102") ||
+                            cat2.equals("A0201") || cat2.equals("A0202") || cat2.equals("A0203") ||
+                            cat2.equals("A0205") || cat2.equals("A0206")) {
 
                         NodeList TitleList  = fstElmnt.getElementsByTagName("title");
                         Element TitleElement = (Element) TitleList.item(0);
