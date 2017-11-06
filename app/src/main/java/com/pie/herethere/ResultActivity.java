@@ -123,7 +123,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         });
 
         Ready();
-
     }
 
     @Override
